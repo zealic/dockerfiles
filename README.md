@@ -1,5 +1,13 @@
-# About this Repo
+Gollum Docker Image
+====================
 
-This is the Git repo of the Docker image for [gollum](https://registry.hub.docker.com/zealic/gollum/). See the
-Hub page for the full readme on how to use the Docker image and for information
-regarding contributing and issues.
+This repository contains `Dockerfile` definitions for [Gollum][gollum] Docker images.
+
+## Supported tags
+
+* [`latest` _(Dockerfile)_](3.0/Dockerfile)
+
+Getting started for this docker container at the [Docker Hub][registry].
+
+[gollum]: https://github.com/gollum/gollum
+[registry]: https://registry.hub.docker.com/zealic/gollum
