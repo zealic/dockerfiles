@@ -2,20 +2,24 @@ FROM java:7
 
 ENV SERVER_TYPE cauldron
 
-RUN mkdir -p /mc/bin && mkdir -p /data/world \
-	&& curl -o /mc/bin/server.jar -SLO "http://download.sellmoe.ml/cauldron-1.7.10-1.1207.01.198-server.jar" \
+RUN groupadd -g 25565 minecraft \
+	&& useradd -m -s /bin/bash -u 25565 -g 25565 minecraft \
+	&& mkdir -p mkdir -p /home/minecraft/bin \
+	&& curl -o /home/minecraft/bin/server.jar -SLO "http://download.sellmoe.ml/cauldron-1.7.10-1.1207.01.198-server.jar" \
 	&& curl -o /tmp/libraries.zip -SLO "http://download.sellmoe.ml/libraries-1.1207.01.zip" \
-	&& unzip -d /mc/bin /tmp/libraries.zip \
+	&& unzip -d /home/minecraft/bin /tmp/libraries.zip \
 	&& rm "/tmp/libraries.zip"
 
-ADD scripts/* /mc/scripts/
-RUN chmod +x /mc/scripts/* \
-	&& groupadd -g 25565 minecraft \
-	&& useradd -s /bin/bash -u 25565 -g 25565 minecraft \
-	&& chown -R minecraft:minecraft /data/world
+ADD scripts/* /home/minecraft/scripts/
+RUN mkdir -p /home/minecraft/scripts \
+	&& chmod +x /home/minecraft/scripts/* \
+	&& mkdir -p /home/minecraft/world \
+	&& touch /home/minecraft/world/README.md \
+	&& chown -R minecraft:minecraft /home/minecraft/world
+
+# For minecraft user
+USER minecraft
 
 EXPOSE 25565
-
-USER minecraft
-WORKDIR /data/world
-ENTRYPOINT ["/mc/scripts/run-mc"]
+WORKDIR /home/minecraft/world
+ENTRYPOINT ["/home/minecraft/scripts/run-mc"]
