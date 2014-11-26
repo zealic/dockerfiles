@@ -10,4 +10,4 @@ This repository contains `Dockerfile` definitions for [Gollum][gollum] Docker im
 Getting started for this docker container at the [Docker Hub][registry].
 
 [gollum]: https://github.com/gollum/gollum
-[registry]: https://registry.hub.docker.com/zealic/gollum
+[registry]: https://registry.hub.docker.com/u/zealic/gollum
