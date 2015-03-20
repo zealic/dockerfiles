@@ -1,0 +1,3 @@
+#!/bin/sh
+cd ~/steamapps/DST/data
+../bin/dontstarve_dedicated_server_nullrenderer $@
