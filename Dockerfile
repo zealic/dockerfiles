@@ -9,12 +9,11 @@ RUN useradd -u 10999 -m steam
 RUN mkdir /DST \
   && chown steam:steam /DST \
   && mkdir -p /home/steam/.klei \
-  && chown -R steam:steam /home/steam/.klei \
-  && ln -s /DST /home/steam/.klei/DoNotStarveTogether
+  && chown -R steam:steam /home/steam/.klei
 
 USER steam
 RUN mkdir ~/steamcmd
-ENV DST_SERVER_VERSION 136911
+ENV DST_SERVER_VERSION 138964
 RUN cd  ~/steamcmd && curl -SLO "http://media.steampowered.com/installer/steamcmd_linux.tar.gz" \
   && tar -xvf steamcmd_linux.tar.gz -C ~/steamcmd && rm steamcmd_linux.tar.gz
 RUN echo "login anonymous\nforce_install_dir /home/steam/steamapps/DST\napp_update 343050 validate\nquit\n" | ~/steamcmd/steamcmd.sh
@@ -25,4 +24,5 @@ RUN chmod +x /usr/local/bin/run-dst
 
 USER steam
 EXPOSE 10999/udp
+VOLUME ["/DST"]
 ENTRYPOINT ["/usr/local/bin/run-dst"]

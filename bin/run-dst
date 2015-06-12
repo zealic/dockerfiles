@@ -1,3 +1,13 @@
-#!/bin/sh
+#!/bin/bash
+ln -sf /DST /home/steam/.klei/DoNotStarveTogether
+if [[ ! -z "$SERVER_TOKEN" ]]; then
+	echo -ne "$SERVER_TOKEN" | grep -P -n '\0$' > /dev/null
+	if [ $? -ne 0 ]; then
+		echo "Appendix for token..."
+		SERVER_TOKEN="$SERVER_TOKEN\0"
+	fi
+	echo -ne "$SERVER_TOKEN" > /DST/server_token.txt
+fi
+
 cd ~/steamapps/DST/data
 ../bin/dontstarve_dedicated_server_nullrenderer $@
