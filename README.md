@@ -21,6 +21,15 @@ docker run -d -e SERVER_TOKEN=<YOUR_SERVER_TOKEN> zealic/dst_server
 ## Volume Directory
 Data volume directory is `/DST`
 
+Host directory owners must be 10999:10999
+
+## Usage
+```shell
+mkdir $HOME/dst_data
+chown 10999:10999 $HOME/dst_data
+docker run -d -e SERVER_TOKEN=... -v $HOME/dst_data:/DST zealic/dst_server
+```
+
 
 
 [dst]: http://dont-starve-game.wikia.com/wiki/Don%27t_Starve_Wiki
