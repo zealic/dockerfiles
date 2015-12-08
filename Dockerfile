@@ -6,6 +6,8 @@ RUN apt-get update && apt-get install -y iptables openssl openvpn net-tools mtr-
 
 ADD ./bin/* /usr/local/bin/
 
+ENV OPENVPN /etc/openvpn
+
 EXPOSE 1194/udp
 
 CMD ["/usr/local/bin/run-vpn"]
