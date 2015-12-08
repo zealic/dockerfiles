@@ -6,8 +6,8 @@ fi
 set -e
 
 ARGS=("--config" "$OPENVPN/openvpn.conf")
-if [ -e "$OPENVPN/ovpn_env.sh" ]; then
-  source "$OPENVPN/ovpn_env.sh"
+if [ -e "$OPENVPN/env.sh" ]; then
+  source "$OPENVPN/env.sh"
 fi
 
 # Create device
@@ -15,28 +15,6 @@ mkdir -p /dev/net
 if [ ! -c /dev/net/tun ]; then
   mknod /dev/net/tun c 10 200
 fi
-
-# Create route
-[ -z "$OVPN_NATDEVICE" ] && OVPN_NATDEVICE=eth0
-
-# Setup NAT forwarding if requested
-if [ -z "$OVPN_SERVER" ]; then
-  echo OVPN_SERVER variable is required.
-  exit 1
-fi
-iptables -t nat -C POSTROUTING -s $OVPN_SERVER -o $OVPN_NATDEVICE -j MASQUERADE || {
-  iptables -t nat -A POSTROUTING -s $OVPN_SERVER -o $OVPN_NATDEVICE -j MASQUERADE
-}
-
-if [ -z "$OVPN_ROUTES" ]; then
-  echo OVPN_ROUTES variable is required.
-  exit 1
-fi
-for i in "${OVPN_ROUTES[@]}"; do
-  iptables -t nat -C POSTROUTING -s "$i" -o $OVPN_NATDEVICE -j MASQUERADE || {
-    iptables -t nat -A POSTROUTING -s "$i" -o $OVPN_NATDEVICE -j MASQUERADE
-  }
-done
 
 # Run OpenVPN
 if [ "$#" -gt 0 ]; then
