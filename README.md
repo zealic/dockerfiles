@@ -4,7 +4,7 @@ This repository contains `Dockerfile` definitions for [Don't Starve Server][dst]
 
 ## Supported tags
 
-* [`latest` _(Dockerfile)_](Dockerfile)
+* [`latest` _(Dockerfile)_](https://github.com/zealic/docker-library-dst_server/blob/master/Dockerfile)
 
 Getting started for this docker container at the [Docker Hub][registry].
 

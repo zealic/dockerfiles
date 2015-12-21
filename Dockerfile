@@ -13,7 +13,7 @@ RUN mkdir /DST \
 
 USER steam
 RUN mkdir ~/steamcmd
-ENV DST_SERVER_VERSION 158063
+ENV DST_SERVER_VERSION 159218
 RUN cd  ~/steamcmd && curl -SLO "http://media.steampowered.com/installer/steamcmd_linux.tar.gz" \
   && tar -xvf steamcmd_linux.tar.gz -C ~/steamcmd && rm steamcmd_linux.tar.gz
 RUN ~/steamcmd/steamcmd.sh +login anonymous +force_install_dir /home/steam/steamapps/DST +app_update 343050 validate +quit
