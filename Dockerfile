@@ -13,4 +13,4 @@ ENV OPENVPN /etc/openvpn
 
 EXPOSE 1194/udp
 
-CMD ["/usr/local/bin/run-vpn"]
+ENTRYPOINT ["/usr/local/bin/run-vpn"]
