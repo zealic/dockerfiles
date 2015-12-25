@@ -6,7 +6,7 @@ This repository contains `Dockerfile` definitions for [OpenWRT][openwrt] Docker 
 ## Usage
 `sudo docker run -it --rm=true -v $PWD/target:/build zealic/openwrt-image-builder build:ova --output /build/OpenWRT.ova`
 
-## Supported tags
+## Supported format
 * OVA
 
 ## Supported tags
