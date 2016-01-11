@@ -1,4 +1,7 @@
 #!/bin/bash
+# Update game on startup
+/home/steam/steamcmd/steamcmd.sh +login anonymous +force_install_dir /home/steam/steamapps/DST +app_update 343050 validate +quit
+
 ln -sf /DST /home/steam/.klei/DoNotStarveTogether
 if [[ ! -z "$SERVER_TOKEN" ]]; then
 	echo -ne "$SERVER_TOKEN" | grep -P -n '\0$' > /dev/null
