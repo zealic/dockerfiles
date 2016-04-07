@@ -1,0 +1,26 @@
+#!/bin/bash
+if [ ! -f ~/world/eula.txt ]; then
+  echo "eula=true" > ~/world/eula.txt
+fi
+
+if [ ! -f ~/world/server.properties ]; then
+  echo "MANAGED=true" > ~/world/server.properties
+fi
+
+if [ -z "$MC_LEVEL_NAME" ]; then
+  MC_LEVEL_NAME="iWorld"
+fi
+if [ -z "$MC_MOTD" ]; then
+  MC_MOTD="My world is running in my brain."
+fi
+if [ -z "$MC_ONLINE_MODE" ]; then
+  MC_ONLINE_MODE="false"
+fi
+cat >> ~/world/server.properties <<EOF
+level-name=$MC_LEVEL_NAME
+motd=$MC_MOTD
+online-mode=$MC_ONLINE_MODE
+EOF
+
+java -jar ~/bin/server.jar $@
+exit $?
