@@ -20,7 +20,7 @@ echo ip_nat_pptp > /etc/modules-load.d/ip_nat_pptp.conf
 
 * Run container
 ```shell
-curl -L https://raw.github.com/zealic/docker-library-pptpd/master/run-container.sh | sh
+curl -L https://raw.github.com/zealic/dockerfiles/master/pptpd/run-container.sh | sh
 ```
 
 
