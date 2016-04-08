@@ -1,8 +1,8 @@
 FROM alpine
 MAINTAINER zealic <zealic@gmail.com>
 
-ENV BUILD_DEPS="autoconf automake build-base  gawk git iptables libtool linux-headers"
-RUN apk add -U $BUILD_DEPS \
+ENV BUILD_DEPS="autoconf automake build-base gawk git libtool linux-headers"
+RUN apk add -U $BUILD_DEPS iptables \
     && git clone --recursive https://github.com/WeShadowsocks/ShadowVPN.git \
     && cd ShadowVPN \
     && ./autogen.sh \
@@ -10,7 +10,9 @@ RUN apk add -U $BUILD_DEPS \
     && make install \
     && cd .. \
     && rm -rf ShadowVPN \
-    && apk del $BUILD_DEPS
+    && apk del $BUILD_DEPS \
+    && mkdir -p /dev/net \
+    && mknod /dev/net/tun c 10 200
 
 EXPOSE 1123/udp
 
