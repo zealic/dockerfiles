@@ -1,7 +1,7 @@
 class Build < Thor
   desc "ova", "Build ova."
   method_option :output, :type => :string, :desc => "Output filename."
-  def ova(source='https://downloads.openwrt.org/chaos_calmer/15.05/x86/64/openwrt-15.05-x86-64-combined-ext4.img.gz')
+  def ova(source='https://downloads.openwrt.org/chaos_calmer/15.05.1/x86/64/openwrt-15.05.1-x86-64-combined-ext4.img.gz')
     output = options["output"] || "/tmp/openwrt.ova"
     puts "Downloading OpenWRT image..."
     system("curl -#SL \"#{source}\" | gzip -cd > /tmp/openwrt.img")
