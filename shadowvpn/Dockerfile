@@ -10,10 +10,10 @@ RUN apk add -U $BUILD_DEPS iptables \
     && make install \
     && cd .. \
     && rm -rf ShadowVPN \
-    && apk del $BUILD_DEPS \
-    && mkdir -p /dev/net \
-    && mknod /dev/net/tun c 10 200
+    && apk del $BUILD_DEPS
+
+ADD ./bin/* /usr/local/bin/
 
 EXPOSE 1123/udp
 
-CMD shadowvpn -c /etc/shadowvpn/server.conf
+ENTRYPOINT ["/usr/local/bin/run-vpn"]
