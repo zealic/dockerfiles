@@ -1,6 +1,6 @@
 FROM debian:wheezy
 
-ENV BITCOIND_VERSION 0.12.0
+ENV BITCOIND_VERSION 0.12.1
 
 RUN apt-get update && apt-get install -y curl \
   && apt-get clean && rm -rf /var/lib/apt/lists/*
