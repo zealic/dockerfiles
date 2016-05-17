@@ -1,6 +1,6 @@
 FROM ruby:2.1.3
 
-ENV GOLLUM_VERSION 3.0.0
+ENV GOLLUM_VERSION 4.0.1
 
 # FUCK the Garbage Firewall
 RUN apt-get update && apt-get install -y libicu-dev
