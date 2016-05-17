@@ -2,7 +2,7 @@ FROM debian:jessie
 MAINTAINER zealic <zealic@gmail.com>
 
 ENV DNS_VER 1.3.2
-ENV DNS_URL https://github.com/clowwindy/ChinaDNS/releases/download/${DNS_VER}/chinadns-${DNS_VER}.tar.gz
+ENV DNS_URL https://github.com/shadowsocks/ChinaDNS/releases/download/${DNS_VER}/chinadns-${DNS_VER}.tar.gz
 ENV DNS_FILE chinadns.tar.gz
 ENV DNS_MD5 f3ece30f2a453d25cc22ef6e1ef579b0
 
