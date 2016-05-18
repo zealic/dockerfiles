@@ -11,7 +11,6 @@ ARGS=(
     "-d" "${DNS_ADDR:-8.8.4.4}"
 )
 
-echo ${ARGS[@]}
 if [ "$#" -gt 0 ]; then
   exec $SS_PROGRAM "$@"
 else
