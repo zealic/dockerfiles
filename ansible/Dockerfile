@@ -1,9 +1,10 @@
-FROM alpine:3.3
+FROM alpine:edge
 MAINTAINER zealic <zealic@gmail.com>
 
-RUN export ALPINE_VERSION=3.3 && export ALPINE_MIRROR_HOST=mirrors.tuna.tsinghua.edu.cn \
-  && echo "https://$ALPINE_MIRROR_HOST/alpine/v$ALPINE_VERSION/main/" > /etc/apk/repositories \
-  && echo "https://$ALPINE_MIRROR_HOST/alpine/edge/community/" >> /etc/apk/repositories
+RUN export ALPINE_VERSION=edge \
+  && export ALPINE_MIRROR_HOST=mirrors.tuna.tsinghua.edu.cn \
+  && echo "https://$ALPINE_MIRROR_HOST/alpine/$ALPINE_VERSION/main/" > /etc/apk/repositories \
+  && echo "https://$ALPINE_MIRROR_HOST/alpine/$ALPINE_VERSION/community/" >> /etc/apk/repositories
 
 ENV PYTHONDONTWRITEBYTECODE=x
 
