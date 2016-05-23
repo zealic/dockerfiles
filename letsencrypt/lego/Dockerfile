@@ -2,7 +2,7 @@ FROM zealic/alpine
 MAINTAINER zealic <zealic@gmail.com>
 
 RUN export BUILD_DEPS="go git" \
-    && export RUNTIME_DEPS="" \
+    && export RUNTIME_DEPS="ca-certificates" \
     && set -ex \
     && apk add --update $BUILD_DEPS $RUNTIME_DEPS \
     && GOPATH=/tmp/go go get github.com/xenolf/lego \
