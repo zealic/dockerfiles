@@ -1,4 +1,4 @@
-FROM alpine:python
+FROM zealic:python
 MAINTAINER zealic <zealic@gmail.com>
 
 WORKDIR /certbot
