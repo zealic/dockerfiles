@@ -7,6 +7,8 @@ Vagrant.configure(VAGRANT_API_VERSION) do |config|
 
   config.vm.provider :virtualbox do |v|
     v.customize ["modifyvm", :id, "--memory", 1024]
+    v.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
+    v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
   end
 
   config.vm.provision "shell", inline: <<-SHELL
