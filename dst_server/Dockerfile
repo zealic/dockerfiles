@@ -15,7 +15,7 @@ USER steam
 RUN mkdir ~/steamcmd
 # Visit: http://steamcommunity.com/games/322330/announcements/
 # Update DST_SERVER_VERSION to force build new docker image
-ENV DST_SERVER_VERSION 177657
+ENV DST_SERVER_VERSION 180814
 RUN cd  ~/steamcmd && curl -SLO "http://media.steampowered.com/installer/steamcmd_linux.tar.gz" \
   && tar -xvf steamcmd_linux.tar.gz -C ~/steamcmd && rm steamcmd_linux.tar.gz
 RUN ~/steamcmd/steamcmd.sh +login anonymous +force_install_dir /home/steam/steamapps/DST +app_update 343050 validate +quit
