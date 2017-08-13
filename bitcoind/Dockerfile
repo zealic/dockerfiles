@@ -1,11 +1,11 @@
-FROM debian:wheezy
+FROM debian:stretch-slim
 
-ENV BITCOIND_VERSION 0.12.1
+ENV BITCOIND_VERSION 0.14.2
 
 RUN apt-get update && apt-get install -y curl \
   && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-RUN curl -LsS https://bitcoin.org/bin/bitcoin-core-${BITCOIND_VERSION}/bitcoin-${BITCOIND_VERSION}-linux64.tar.gz | tar -xzf - -C /tmp \
+RUN curl -LsS https://bitcoin.org/bin/bitcoin-core-${BITCOIND_VERSION}/bitcoin-${BITCOIND_VERSION}-x86_64-linux-gnu.tar.gz | tar -xzf - -C /tmp \
   && chown -R root:root /tmp/bitcoin-* \
   && mv /tmp/bitcoin-*/bin/bitcoin-cli /usr/local/bin \
   && mv /tmp/bitcoin-*/bin/bitcoind /usr/local/bin \
