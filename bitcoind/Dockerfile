@@ -1,27 +1,31 @@
-FROM debian:stretch-slim
+################################################################################
+# Source
+################################################################################
+FROM alpine:edge AS source
+
+ENV BASE_DIR /bitcoin
+
+RUN apk add --update curl
 
 ENV BITCOIND_VERSION 0.14.2
+ENV BITCOIN_BINARY_URL https://bitcoin.org/bin/bitcoin-core-${BITCOIND_VERSION}/bitcoin-${BITCOIND_VERSION}-x86_64-linux-gnu.tar.gz
+RUN mkdir ${BASE_DIR}
+RUN curl -sSL ${BITCOIN_BINARY_URL} \
+        | tar --strip-components=1 -xzf - -C ${BASE_DIR}
 
-RUN apt-get update && apt-get install -y curl \
-  && apt-get clean && rm -rf /var/lib/apt/lists/*
+ENV BX_VERSION 3.2.0
+ENV BX_BINARY_URL https://github.com/libbitcoin/libbitcoin-explorer/releases/download/v${BX_VERSION}/bx-linux-x64-qrcode
+RUN curl -sSL -o ${BASE_DIR}/bin/bx ${BX_BINARY_URL} \
+    && chmod +x ${BASE_DIR}/bin/bx
 
-RUN curl -LsS https://bitcoin.org/bin/bitcoin-core-${BITCOIND_VERSION}/bitcoin-${BITCOIND_VERSION}-x86_64-linux-gnu.tar.gz | tar -xzf - -C /tmp \
-  && chown -R root:root /tmp/bitcoin-* \
-  && mv /tmp/bitcoin-*/bin/bitcoin-cli /usr/local/bin \
-  && mv /tmp/bitcoin-*/bin/bitcoind /usr/local/bin \
-  && mv /tmp/bitcoin-*/bin/test_bitcoin /usr/local/bin \
-  && rm -rf /tmp/bitcoin-*
 
-RUN groupadd -r bitcoind \
-  && useradd -c "Bitcoind" -d /var/lib/bitcoind -g bitcoind -m -r -s /sbin/nologin bitcoind \
-  && rm /var/lib/bitcoind/.bash*
+################################################################################
+# Runtime
+################################################################################
+FROM debian:stretch-slim
 
-ENV HOME /var/lib/bitcoind
+COPY --from=source /bitcoin/bin /usr/local/bin
 
-USER bitcoind
-
+VOLUME ["/var/lib/bitcoin"]
 EXPOSE 8332 8333 18332 18333
-
-VOLUME ["/var/lib/bitcoind"]
-
-ENTRYPOINT ["/usr/local/bin/bitcoind"]
+ENTRYPOINT ["/usr/local/bin/bitcoind", "-datadir=/var/lib/bitcoin"]
