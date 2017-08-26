@@ -6,7 +6,7 @@ RUN apt-get update && apt-get install -y qemu curl ruby \
   && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # FROM : https://aur.archlinux.org/packages/vmware-ovftool/
-RUN curl -#SL https://dl.dropboxusercontent.com/u/99802211/external_sources/VMware%20OVFTool/VMware-ovftool-4.1.0-2459827-lin.x86_64.bundle > /tmp/ovftool.bundle \
+RUN curl -#SL http://url.muflone.com/VMware-ovftool-4.2.0-4586971-lin.x86_64.bundle > /tmp/ovftool.bundle \
   && chmod +x /tmp/ovftool.bundle && echo -n "\n" | /tmp/ovftool.bundle --eulas-agreed \
   && rm -rf /tmp/*
 
