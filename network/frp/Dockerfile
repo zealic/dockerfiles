@@ -20,6 +20,6 @@ RUN curl -sSL ${FRP_BINARY_URL} \
 FROM debian:stretch-slim
 
 COPY --from=source /frp /usr/local/bin
-COPY --from=source /frp/frps.ini /frps.ini
+ADD ./entrypoint.sh /entrypoint.sh
 
-CMD ["frps", "-c", "/frps.ini"]
+ENTRYPOINT ["/entrypoint.sh"]
