@@ -1,0 +1,12 @@
+image: docker:latest
+services:
+    - docker:dind
+before_script:
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
+
+container-image:
+  only:
+    - master
+  script:
+    - docker build -t ${CI_REGISTRY_IMAGE}:latest .
+    - docker push  ${CI_REGISTRY_IMAGE}:latest
