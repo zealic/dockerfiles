@@ -1,2 +1,2 @@
-# Golang
-Golang Docker Image
+# Toolkit
+Toolkit Docker Image
