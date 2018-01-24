@@ -1,37 +1,67 @@
+ARG BASE_IMAGE=buildpack-deps:stretch-curl
+################################################################################
+# Source - gomplate
+################################################################################
+FROM $BASE_IMAGE AS source-gomplate
+ENV GOMPLATE_VER=2.2.0
+ENV GOMPLATE_URL=https://github.com/hairyhenderson/gomplate/releases/download/v$GOMPLATE_VER/gomplate_linux-amd64
+RUN curl -sSL -o /usr/local/bin/gomplate $GOMPLATE_URL
+RUN chmod +x /usr/local/bin/gomplate
+
+
 ################################################################################
 # Source - Lego
 ################################################################################
-FROM xenolf/lego AS source-lego
+FROM $BASE_IMAGE AS source-lego
+ENV LEGO_VER=0.4.1
+ENV LEGO_URL=https://github.com/xenolf/lego/releases/download/v$LEGO_VER/lego_linux_amd64.tar.xz
+RUN apt-get update && apt-get install -y xz-utils
+RUN curl -sSL $LEGO_URL | tar -C /tmp --xz -xvf -
+RUN mv /tmp/lego_linux_amd64 /usr/local/bin/lego
 
 
 ################################################################################
 # Source - Migrate
 ################################################################################
-FROM golang:1.9-alpine AS source-migrate
-RUN apk add --no-cache gcc g++ git
-RUN go get github.com/mattes/migrate \
-    && go get github.com/mattes/migrate/database/postgres
-RUN export VERSION=`git describe --tags 2>/dev/null | cut -c 2-` \
-    && cd /go/src/github.com/mattes/migrate/cli \
-    && go build -a -o /usr/local/bin/migrate -ldflags="${VERSION}" -tags 'postgres file' .
+FROM $BASE_IMAGE AS source-migrate
+ENV MIGRATE_VER=3.0.1
+ENV MIGRATE_URL=https://github.com/mattes/migrate/releases/download/v$MIGRATE_VER/migrate.linux-amd64.tar.gz
+RUN curl -sSL $MIGRATE_URL | tar -C /tmp -xvzf -
+RUN mv /tmp/migrate.linux-amd64 /usr/local/bin/migrate
+
+
+################################################################################
+# Source - jq
+################################################################################
+FROM $BASE_IMAGE AS source-jq
+ENV JQ_VER=1.5
+ENV JQ_URL=https://github.com/stedolan/jq/releases/download/jq-$JQ_VER/jq-linux64
+RUN curl -sSL -o /usr/local/bin/jq $JQ_URL
+RUN chmod +x /usr/local/bin/jq
 
 
 ################################################################################
 # Source - yq
 ################################################################################
-FROM golang:1.9-alpine AS source-yq
-RUN apk add --no-cache git
-RUN go get github.com/mikefarah/yq
+FROM $BASE_IMAGE AS source-yq
+ENV YQ_VER=1.14.0
+ENV YQ_URL=https://github.com/mikefarah/yq/releases/download/$YQ_VER/yq_linux_amd64
+RUN curl -sSL -o /usr/local/bin/yq $YQ_URL
+RUN chmod +x /usr/local/bin/yq
 
 
 ################################################################################
 # Runtime
 ################################################################################
-FROM alpine:3.7
+FROM debian:stretch-slim
 
-RUN apk add --no-cache make ca-certificates bash jq gomplate
+RUN export DEPS="curl make" \
+    && apt-get update && apt-get install -y $DEPS \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Sources
-COPY --from=source-lego    /usr/bin/lego          /usr/local/bin/lego
-COPY --from=source-migrate /usr/local/bin/migrate /usr/local/bin/migrate
-COPY --from=source-yq      /go/bin/yq             /usr/local/bin/yq
+COPY --from=source-gomplate /usr/local/bin/gomplate /usr/local/bin/gomplate
+COPY --from=source-lego     /usr/local/bin/lego     /usr/local/bin/lego
+COPY --from=source-migrate  /usr/local/bin/migrate  /usr/local/bin/migrate
+COPY --from=source-jq       /usr/local/bin/jq       /usr/local/bin/jq
+COPY --from=source-yq       /usr/local/bin/yq       /usr/local/bin/yq
