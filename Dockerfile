@@ -51,6 +51,17 @@ RUN chmod +x /usr/local/bin/yq
 
 
 ################################################################################
+# Sources
+################################################################################
+FROM $BASE_IMAGE AS sources
+COPY --from=source-gomplate /usr/local/bin/gomplate /usr/local/bin/gomplate
+COPY --from=source-lego     /usr/local/bin/lego     /usr/local/bin/lego
+COPY --from=source-migrate  /usr/local/bin/migrate  /usr/local/bin/migrate
+COPY --from=source-jq       /usr/local/bin/jq       /usr/local/bin/jq
+COPY --from=source-yq       /usr/local/bin/yq       /usr/local/bin/yq
+
+
+################################################################################
 # Runtime
 ################################################################################
 FROM debian:stretch-slim
@@ -60,8 +71,4 @@ RUN export DEPS="curl make" \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Sources
-COPY --from=source-gomplate /usr/local/bin/gomplate /usr/local/bin/gomplate
-COPY --from=source-lego     /usr/local/bin/lego     /usr/local/bin/lego
-COPY --from=source-migrate  /usr/local/bin/migrate  /usr/local/bin/migrate
-COPY --from=source-jq       /usr/local/bin/jq       /usr/local/bin/jq
-COPY --from=source-yq       /usr/local/bin/yq       /usr/local/bin/yq
+COPY --from=sources /usr/local/bin/* /usr/local/bin/
