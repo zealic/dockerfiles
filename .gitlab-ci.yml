@@ -1,8 +1,11 @@
 image: docker:latest
 services:
-    - docker:dind
+  - docker:dind
 before_script:
-    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
+  - eval "$CI_BEFORE_SCRIPT"
+after_script:
+  - eval "$CI_AFTER_SCRIPT"
+
 
 container-image:
   only:
