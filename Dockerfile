@@ -66,7 +66,7 @@ COPY --from=source-yq       /usr/local/bin/yq       /usr/local/bin/yq
 ################################################################################
 FROM debian:stretch-slim
 
-RUN export DEPS="curl make" \
+RUN export DEPS="curl make net-tools netcat" \
     && apt-get update && apt-get install -y $DEPS \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
