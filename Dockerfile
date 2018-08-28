@@ -14,10 +14,9 @@ RUN chmod +x /usr/local/bin/gomplate
 ################################################################################
 FROM $BASE_IMAGE AS source-lego
 ENV LEGO_VER=1.0.1
-ENV LEGO_URL=https://github.com/xenolf/lego/releases/download/v$LEGO_VER/lego_linux_amd64.tar.xz
-RUN apt-get update && apt-get install -y xz-utils
-RUN curl -sSL $LEGO_URL | tar -C /tmp --xz -xvf -
-RUN mv /tmp/lego_linux_amd64 /usr/local/bin/lego
+ENV LEGO_URL=https://github.com/xenolf/lego/releases/download/v$LEGO_VER/lego_v${LEGO_VER}_linux_amd64.tar.gz
+RUN curl -sSL $LEGO_URL | tar -C /tmp -xvzf -
+RUN mv /tmp/lego /usr/local/bin/lego
 
 
 ################################################################################
