@@ -11,6 +11,15 @@ RUN chmod +x /usr/local/bin/confd
 
 
 ################################################################################
+# Source - consul-template
+################################################################################
+FROM $BASE_IMAGE AS source-consult
+ENV CONSULT_VER=0.19.5
+ENV CONSULR_URL=https://releases.hashicorp.com/consul-template/$CONSULT_VER/consul-template_${CONSULT_VER}_linux_amd64.zip
+RUN wget -qO consult.zip $CONSULR_URL && unzip -d /usr/local/bin consult.zip
+
+
+################################################################################
 # Source - gomplate
 ################################################################################
 FROM $BASE_IMAGE AS source-gomplate
@@ -92,6 +101,7 @@ RUN chmod +x /usr/local/bin/yq
 ################################################################################
 FROM $BASE_IMAGE AS sources
 COPY --from=source-confd      /usr/local/bin/confd     /usr/local/bin/confd
+COPY --from=source-consult    /usr/local/bin/consul-template /usr/local/bin/consul-template
 COPY --from=source-gomplate   /usr/local/bin/gomplate  /usr/local/bin/gomplate
 COPY --from=source-jq         /usr/local/bin/jq        /usr/local/bin/jq
 COPY --from=source-lego       /usr/local/bin/lego      /usr/local/bin/lego
