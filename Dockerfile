@@ -50,6 +50,16 @@ RUN chmod +x /usr/local/bin/yq
 
 
 ################################################################################
+# Source - vault
+################################################################################
+FROM alpine:edge AS source-vault
+RUN apk add --no-cache curl
+ENV VAULT_VER=0.11.0
+ENV VAULT_URL=https://releases.hashicorp.com/vault/$VAULT_VER/vault_${VAULT_VER}_linux_amd64.zip
+RUN wget -q -O vault.zip $VAULT_URL && unzip -d /usr/local/bin vault.zip
+
+
+################################################################################
 # Sources
 ################################################################################
 FROM $BASE_IMAGE AS sources
@@ -57,6 +67,7 @@ COPY --from=source-gomplate /usr/local/bin/gomplate /usr/local/bin/gomplate
 COPY --from=source-lego     /usr/local/bin/lego     /usr/local/bin/lego
 COPY --from=source-migrate  /usr/local/bin/migrate  /usr/local/bin/migrate
 COPY --from=source-jq       /usr/local/bin/jq       /usr/local/bin/jq
+COPY --from=source-vault    /usr/local/bin/vault    /usr/local/bin/vault
 COPY --from=source-yq       /usr/local/bin/yq       /usr/local/bin/yq
 
 
