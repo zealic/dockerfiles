@@ -10,7 +10,17 @@ RUN chmod +x /usr/local/bin/gomplate
 
 
 ################################################################################
-# Source - Lego
+# Source - jq
+################################################################################
+FROM $BASE_IMAGE AS source-jq
+ENV JQ_VER=1.5
+ENV JQ_URL=https://github.com/stedolan/jq/releases/download/jq-$JQ_VER/jq-linux64
+RUN wget -qO /usr/local/bin/jq $JQ_URL
+RUN chmod +x /usr/local/bin/jq
+
+
+################################################################################
+# Source - lego
 ################################################################################
 FROM $BASE_IMAGE AS source-lego
 ENV LEGO_VER=1.0.1
@@ -20,7 +30,7 @@ RUN mv /tmp/lego /usr/local/bin/lego
 
 
 ################################################################################
-# Source - Migrate
+# Source - migrate
 ################################################################################
 FROM $BASE_IMAGE AS source-migrate
 ENV MIGRATE_VER=3.4.0
@@ -30,13 +40,12 @@ RUN mv /tmp/migrate.linux-amd64 /usr/local/bin/migrate
 
 
 ################################################################################
-# Source - jq
+# Source - vault
 ################################################################################
-FROM $BASE_IMAGE AS source-jq
-ENV JQ_VER=1.5
-ENV JQ_URL=https://github.com/stedolan/jq/releases/download/jq-$JQ_VER/jq-linux64
-RUN wget -qO /usr/local/bin/jq $JQ_URL
-RUN chmod +x /usr/local/bin/jq
+FROM $BASE_IMAGE AS source-vault
+ENV VAULT_VER=0.11.0
+ENV VAULT_URL=https://releases.hashicorp.com/vault/$VAULT_VER/vault_${VAULT_VER}_linux_amd64.zip
+RUN wget -qO vault.zip $VAULT_URL && unzip -d /usr/local/bin vault.zip
 
 
 ################################################################################
@@ -50,22 +59,13 @@ RUN chmod +x /usr/local/bin/yq
 
 
 ################################################################################
-# Source - vault
-################################################################################
-FROM $BASE_IMAGE AS source-vault
-ENV VAULT_VER=0.11.0
-ENV VAULT_URL=https://releases.hashicorp.com/vault/$VAULT_VER/vault_${VAULT_VER}_linux_amd64.zip
-RUN wget -qO vault.zip $VAULT_URL && unzip -d /usr/local/bin vault.zip
-
-
-################################################################################
 # Sources
 ################################################################################
 FROM $BASE_IMAGE AS sources
 COPY --from=source-gomplate /usr/local/bin/gomplate /usr/local/bin/gomplate
+COPY --from=source-jq       /usr/local/bin/jq       /usr/local/bin/jq
 COPY --from=source-lego     /usr/local/bin/lego     /usr/local/bin/lego
 COPY --from=source-migrate  /usr/local/bin/migrate  /usr/local/bin/migrate
-COPY --from=source-jq       /usr/local/bin/jq       /usr/local/bin/jq
 COPY --from=source-vault    /usr/local/bin/vault    /usr/local/bin/vault
 COPY --from=source-yq       /usr/local/bin/yq       /usr/local/bin/yq
 
