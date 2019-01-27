@@ -157,9 +157,5 @@ COPY --from=source-containerpilot /usr/local/bin/*  /usr/local/bin/
 ################################################################################
 FROM debian:stretch-slim
 
-RUN export DEPS="procps curl make net-tools netcat" \
-    && apt-get update && apt-get install -yqq $DEPS \
-    && apt-get clean && rm -rf /var/lib/apt/lists/*
-
 # Sources
 COPY --from=sources /usr/local/bin/* /usr/local/bin/
