@@ -33,7 +33,7 @@ RUN chmod +x /usr/local/bin/gomplate
 # Source - jq
 ################################################################################
 FROM $SOURCE_IMAGE AS source-jq
-ENV JQ_VER=1.5
+ENV JQ_VER=1.6
 ENV JQ_URL=https://github.com/stedolan/jq/releases/download/jq-$JQ_VER/jq-linux64
 RUN wget -qO /usr/local/bin/jq $JQ_URL
 RUN chmod +x /usr/local/bin/jq
@@ -43,7 +43,7 @@ RUN chmod +x /usr/local/bin/jq
 # Source - lego
 ################################################################################
 FROM $SOURCE_IMAGE AS source-lego
-ENV LEGO_VER=1.0.1
+ENV LEGO_VER=2.1.0
 ENV LEGO_URL=https://github.com/xenolf/lego/releases/download/v$LEGO_VER/lego_v${LEGO_VER}_linux_amd64.tar.gz
 RUN wget -qO- $LEGO_URL | tar -C /tmp -xvzf -
 RUN mv /tmp/lego /usr/local/bin/lego
@@ -53,7 +53,7 @@ RUN mv /tmp/lego /usr/local/bin/lego
 # Source - migrate
 ################################################################################
 FROM $SOURCE_IMAGE AS source-migrate
-ENV MIGRATE_VER=3.4.0
+ENV MIGRATE_VER=4.2.2
 ENV MIGRATE_URL=https://github.com/golang-migrate/migrate/releases/download/v$MIGRATE_VER/migrate.linux-amd64.tar.gz
 RUN wget -qO- $MIGRATE_URL | tar -C /tmp -xvzf -
 RUN mv /tmp/migrate.linux-amd64 /usr/local/bin/migrate
@@ -63,7 +63,7 @@ RUN mv /tmp/migrate.linux-amd64 /usr/local/bin/migrate
 # Source - packer
 ################################################################################
 FROM $SOURCE_IMAGE AS source-packer
-ENV PACKER_VER=1.2.5
+ENV PACKER_VER=1.3.3
 ENV PACKER_URL=https://releases.hashicorp.com/packer/$PACKER_VER/packer_${PACKER_VER}_linux_amd64.zip
 RUN wget -qO packer.zip $PACKER_URL && unzip -d /usr/local/bin packer.zip
 
@@ -72,7 +72,7 @@ RUN wget -qO packer.zip $PACKER_URL && unzip -d /usr/local/bin packer.zip
 # Source - terraform
 ################################################################################
 FROM $SOURCE_IMAGE AS source-terraform
-ENV TERRAFORM_VER=0.11.8
+ENV TERRAFORM_VER=0.11.11
 ENV TERRAFORM_URL=https://releases.hashicorp.com/terraform/$TERRAFORM_VER/terraform_${TERRAFORM_VER}_linux_amd64.zip
 RUN wget -qO terraform.zip $TERRAFORM_URL && unzip -d /usr/local/bin terraform.zip
 
@@ -81,7 +81,7 @@ RUN wget -qO terraform.zip $TERRAFORM_URL && unzip -d /usr/local/bin terraform.z
 # Source - vault
 ################################################################################
 FROM $SOURCE_IMAGE AS source-vault
-ENV VAULT_VER=0.11.0
+ENV VAULT_VER=1.0.2
 ENV VAULT_URL=https://releases.hashicorp.com/vault/$VAULT_VER/vault_${VAULT_VER}_linux_amd64.zip
 RUN wget -qO vault.zip $VAULT_URL && unzip -d /usr/local/bin vault.zip
 
@@ -90,7 +90,7 @@ RUN wget -qO vault.zip $VAULT_URL && unzip -d /usr/local/bin vault.zip
 # Source - yq
 ################################################################################
 FROM $SOURCE_IMAGE AS source-yq
-ENV YQ_VER=2.1.1
+ENV YQ_VER=2.2.1
 ENV YQ_URL=https://github.com/mikefarah/yq/releases/download/$YQ_VER/yq_linux_amd64
 RUN wget -qO /usr/local/bin/yq $YQ_URL
 RUN chmod +x /usr/local/bin/yq
@@ -99,8 +99,8 @@ RUN chmod +x /usr/local/bin/yq
 # Source - gosu
 ################################################################################
 FROM $SOURCE_IMAGE AS source-gosu
-ENV GOSU_VERSION 1.11
-ENV GOSU_URL=https://github.com/tianon/gosu/releases/download/1.11/gosu-amd64
+ENV GOSU_VER 1.11
+ENV GOSU_URL=https://github.com/tianon/gosu/releases/download/${GOSU_VER}/gosu-amd64
 RUN wget -qO /usr/local/bin/gosu $GOSU_URL
 RUN chmod +x /usr/local/bin/gosu
 
@@ -108,8 +108,8 @@ RUN chmod +x /usr/local/bin/gosu
 # Source - tini
 ################################################################################
 FROM $SOURCE_IMAGE AS source-tini
-ENV TINI_VERSION v0.18.0
-ENV TINI_URL=https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini
+ENV TINI_VER v0.18.0
+ENV TINI_URL=https://github.com/krallin/tini/releases/download/${TINI_VER}/tini
 RUN wget -qO /usr/local/bin/tini $TINI_URL
 RUN chmod +x /usr/local/bin/tini
 
