@@ -1,4 +1,4 @@
-ARG SOURCE_IMAGE=alpine:edge
+ARG SOURCE_IMAGE=alpine:3.8
 
 ################################################################################
 # Source - confd
