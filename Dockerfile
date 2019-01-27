@@ -11,12 +11,18 @@ RUN chmod +x /usr/local/bin/confd
 
 
 ################################################################################
-# Source - consul-template
+# Source - consul
 ################################################################################
-FROM $SOURCE_IMAGE AS source-consult
+FROM $SOURCE_IMAGE AS source-consul
+# consul
+ENV CONSUL_VER=1.4.1
+ENV CONSUL_URL=https://releases.hashicorp.com/consul/${CONSUL_VER}/consul_${CONSUL_VER}_linux_amd64.zip
+RUN wget -qO consul.zip $CONSUL_URL && unzip -d /usr/local/bin consul.zip
+# consul-template
 ENV CONSULT_VER=0.19.5
-ENV CONSULR_URL=https://releases.hashicorp.com/consul-template/$CONSULT_VER/consul-template_${CONSULT_VER}_linux_amd64.zip
-RUN wget -qO consult.zip $CONSULR_URL && unzip -d /usr/local/bin consult.zip
+ENV CONSULT_URL=https://releases.hashicorp.com/consul-template/$CONSULT_VER/consul-template_${CONSULT_VER}_linux_amd64.zip
+RUN wget -qO consult.zip $CONSULT_URL && unzip -d /usr/local/bin consult.zip
+
 
 
 ################################################################################
@@ -95,6 +101,7 @@ ENV YQ_URL=https://github.com/mikefarah/yq/releases/download/$YQ_VER/yq_linux_am
 RUN wget -qO /usr/local/bin/yq $YQ_URL
 RUN chmod +x /usr/local/bin/yq
 
+
 ################################################################################
 # Source - gosu
 ################################################################################
@@ -103,6 +110,7 @@ ENV GOSU_VER 1.11
 ENV GOSU_URL=https://github.com/tianon/gosu/releases/download/${GOSU_VER}/gosu-amd64
 RUN wget -qO /usr/local/bin/gosu $GOSU_URL
 RUN chmod +x /usr/local/bin/gosu
+
 
 ################################################################################
 # Source - tini
@@ -113,6 +121,7 @@ ENV TINI_URL=https://github.com/krallin/tini/releases/download/${TINI_VER}/tini
 RUN wget -qO /usr/local/bin/tini $TINI_URL
 RUN chmod +x /usr/local/bin/tini
 
+
 ################################################################################
 # Source - dumb-init
 ################################################################################
@@ -121,6 +130,7 @@ ENV DUMB_INIT_VER 1.2.2
 ENV DUMB_INIT_URL=https://github.com/Yelp/dumb-init/releases/download/v${DUMB_INIT_VER}/dumb-init_${DUMB_INIT_VER}_amd64
 RUN wget -qO /usr/local/bin/dumb-init $DUMB_INIT_URL
 RUN chmod +x /usr/local/bin/dumb-init
+
 
 ################################################################################
 # Source - containerpilot
@@ -133,11 +143,17 @@ RUN mv /tmp/containerpilot /usr/local/bin/containerpilot
 
 
 ################################################################################
+# Source - containerpilot
+################################################################################
+FROM envoyproxy/envoy:v1.9.0 AS source-envoy
+
+
+################################################################################
 # Sources
 ################################################################################
 FROM $SOURCE_IMAGE AS sources
 COPY --from=source-confd          /usr/local/bin/*  /usr/local/bin/
-COPY --from=source-consult        /usr/local/bin/*  /usr/local/bin/
+COPY --from=source-consul         /usr/local/bin/*  /usr/local/bin/
 COPY --from=source-gomplate       /usr/local/bin/*  /usr/local/bin/
 COPY --from=source-jq             /usr/local/bin/*  /usr/local/bin/
 COPY --from=source-lego           /usr/local/bin/*  /usr/local/bin/
@@ -150,6 +166,7 @@ COPY --from=source-gosu           /usr/local/bin/*  /usr/local/bin/
 COPY --from=source-tini           /usr/local/bin/*  /usr/local/bin/
 COPY --from=source-dumb-init      /usr/local/bin/*  /usr/local/bin/
 COPY --from=source-containerpilot /usr/local/bin/*  /usr/local/bin/
+COPY --from=source-envoy          /usr/local/bin/*  /usr/local/bin/
 
 
 ################################################################################
