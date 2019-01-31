@@ -3,6 +3,8 @@
 # Toolkit
 Toolkit Docker Image
 
+All tools are [portable](https://en.wikipedia.org/wiki/Static_build).
+
 ## Reference
 
 * [Docker](https://www.docker.com)

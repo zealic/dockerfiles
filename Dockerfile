@@ -1,6 +1,26 @@
 ARG SOURCE_IMAGE=alpine:3.8
 
 ################################################################################
+# Source - busybox
+################################################################################
+FROM $SOURCE_IMAGE AS source-busybox
+ENV BUSYBOX_VER=1.30.0
+ENV BUSYBOX_URL=https://busybox.net/downloads/binaries/${BUSYBOX_VER}-i686/busybox
+RUN wget -qO /usr/local/bin/busybox $BUSYBOX_URL
+RUN chmod +x /usr/local/bin/busybox
+
+
+################################################################################
+# Source - curl
+################################################################################
+FROM $SOURCE_IMAGE AS source-curl
+ENV CURL_VER=7.30.0
+ENV CURL_URL=https://www.magicermine.com/demos/curl/curl/curl-${CURL_VER}.ermine.tar.bz2
+RUN wget -qO- $CURL_URL | tar -C /tmp -xvjf -
+RUN mv /tmp/curl-${CURL_VER}.ermine/curl.ermine /usr/local/bin/curl
+
+
+################################################################################
 # Source - confd
 ################################################################################
 FROM $SOURCE_IMAGE AS source-confd
@@ -146,12 +166,15 @@ RUN mv /tmp/containerpilot /usr/local/bin/containerpilot
 # Source - containerpilot
 ################################################################################
 FROM envoyproxy/envoy:v1.9.0 AS source-envoy
+# Envoy already in /usr/local/bin
 
 
 ################################################################################
 # Sources
 ################################################################################
 FROM $SOURCE_IMAGE AS sources
+COPY --from=source-busybox        /usr/local/bin/*  /usr/local/bin/
+COPY --from=source-curl           /usr/local/bin/*  /usr/local/bin/
 COPY --from=source-confd          /usr/local/bin/*  /usr/local/bin/
 COPY --from=source-consul         /usr/local/bin/*  /usr/local/bin/
 COPY --from=source-gomplate       /usr/local/bin/*  /usr/local/bin/
