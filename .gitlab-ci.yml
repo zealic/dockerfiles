@@ -11,6 +11,7 @@ container-image:
   only:
     - master
   script:
+    - sh prepare.sh
     - apk add make
     - make build
-    - docker push  ${CI_REGISTRY_IMAGE}:latest
+    - make push

@@ -1,4 +1,4 @@
-ARG SOURCE_IMAGE=alpine:3.8
+ARG SOURCE_IMAGE=builder
 
 ################################################################################
 # Source - busybox
@@ -79,7 +79,7 @@ RUN mv /tmp/lego /usr/local/bin/lego
 # Source - migrate
 ################################################################################
 FROM $SOURCE_IMAGE AS source-migrate
-ENV MIGRATE_VER=4.2.2
+ENV MIGRATE_VER=4.2.3
 ENV MIGRATE_URL=https://github.com/golang-migrate/migrate/releases/download/v$MIGRATE_VER/migrate.linux-amd64.tar.gz
 RUN wget -qO- $MIGRATE_URL | tar -C /tmp -xvzf -
 RUN mv /tmp/migrate.linux-amd64 /usr/local/bin/migrate
@@ -163,7 +163,7 @@ RUN mv /tmp/containerpilot /usr/local/bin/containerpilot
 
 
 ################################################################################
-# Source - containerpilot
+# Source - envoy
 ################################################################################
 FROM envoyproxy/envoy:v1.9.0 AS source-envoy
 # Envoy already in /usr/local/bin

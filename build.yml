@@ -1,0 +1,13 @@
+build:
+  version: 2016-03-14
+  steps:
+    builder:
+      name: builder
+      dockerfile: Dockerfile.builder
+    toolkit:
+      name: zealic/toolkit
+      dockerfile: Dockerfile
+      artifacts:
+        - /versions.env:/versions.env
+      depends_on:
+        - builder
