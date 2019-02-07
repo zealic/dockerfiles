@@ -7,7 +7,5 @@ build:
     toolkit:
       name: zealic/toolkit
       dockerfile: Dockerfile
-      artifacts:
-        - /versions.env:/versions.env
       depends_on:
         - builder

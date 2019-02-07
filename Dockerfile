@@ -170,6 +170,16 @@ FROM envoyproxy/envoy:v1.9.0 AS source-envoy
 
 
 ################################################################################
+# Source - awless
+################################################################################
+FROM $SOURCE_IMAGE AS source-awless
+ENV AWLESS_VER=0.1.11
+ENV AWLESS_URL=https://github.com/wallix/awless/releases/download/v${AWLESS_VER}/awless-linux-amd64.tar.gz
+RUN wget -qO- $AWLESS_URL | tar -C /tmp -xvzf -
+RUN mv /tmp/awless /usr/local/bin/awless
+
+
+################################################################################
 # Sources
 ################################################################################
 FROM $SOURCE_IMAGE AS sources
@@ -190,6 +200,7 @@ COPY --from=source-tini           /usr/local/bin/*  /usr/local/bin/
 COPY --from=source-dumb-init      /usr/local/bin/*  /usr/local/bin/
 COPY --from=source-containerpilot /usr/local/bin/*  /usr/local/bin/
 COPY --from=source-envoy          /usr/local/bin/*  /usr/local/bin/
+COPY --from=source-awless         /usr/local/bin/*  /usr/local/bin/
 
 
 ################################################################################
