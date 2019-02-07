@@ -12,6 +12,4 @@ container-image:
     - master
   script:
     - apk add make
-    - make prepare
     - make build
-    - make push

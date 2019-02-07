@@ -1,4 +1,4 @@
-ARG SOURCE_IMAGE=builder
+ARG SOURCE_IMAGE=alpine:3.9
 
 ################################################################################
 # Source - busybox
