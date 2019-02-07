@@ -7,5 +7,5 @@ script:
   - export PROJECT_NAMESPACE=${TRAVIS_REPO_SLUG#*/}
   - export PROJECT_NAME=${TRAVIS_REPO_SLUG%/*}
   - export CI_REGISTRY_IMAGE=${PROJECT_NAMESPACE}/${PROJECT_NAME}
-  - make prepare
+  - sudo make prepare
   - make build
