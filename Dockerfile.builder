@@ -1,4 +1,6 @@
 FROM alpine:3.9
+ADD *.sh /
+
 # habitus 1.0.4 --os flag not work, so need bash
 RUN apk add bash
 
