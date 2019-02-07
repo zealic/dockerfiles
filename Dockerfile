@@ -206,7 +206,10 @@ COPY --from=source-awless         /usr/local/bin/*  /usr/local/bin/
 ################################################################################
 # Runtime
 ################################################################################
-FROM debian:stretch-slim
+FROM $SOURCE_IMAGE
+
+RUN apk add --no-cache make curl git
 
 # Sources
 COPY --from=sources /usr/local/bin/* /usr/local/bin/
+
