@@ -208,7 +208,7 @@ COPY --from=source-awless         /usr/local/bin/*  /usr/local/bin/
 ################################################################################
 FROM $SOURCE_IMAGE
 
-RUN apk add --no-cache make curl git
+RUN apk add --no-cache bash make curl git
 
 # Sources
 COPY --from=sources /usr/local/bin/* /usr/local/bin/
