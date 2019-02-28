@@ -16,7 +16,7 @@ coinbox-filecoin:
   stage: build
   only:
     changes:
-      - devel/filecoin/**/*
+      - coinbox/filecoin/**/*
   variables:
     IMAGE_NAME: filecoin
     IMAGE_DIR: coinbox/filecoin
