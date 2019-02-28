@@ -33,3 +33,14 @@ coinbox-monero:
     IMAGE_DIR: coinbox/monero
   script:
     - make -f $CI_PROJECT_DIR/Makefile build-and-push
+
+devel-docker:
+  stage: build
+  only:
+    changes:
+      - devel/docker/**/*
+  variables:
+    IMAGE_NAME: docker
+    IMAGE_DIR: devel/docker
+  script:
+    - make -f $CI_PROJECT_DIR/Makefile build-and-push

@@ -1,6 +1,6 @@
-FROM docker:17.10 AS source
+FROM docker:18.09 AS source
 
-FROM docker/compose:1.16.1
+FROM docker/compose:1.23.2
 COPY --from=source /usr/local/bin/* /usr/local/bin/
 ENTRYPOINT ["docker-entrypoint.sh"]
 CMD ["sh"]
