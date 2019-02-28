@@ -22,3 +22,14 @@ coinbox-litecoin:
     IMAGE_DIR: coinbox/litecoin
   script:
     - make -f $CI_PROJECT_DIR/Makefile build-and-push
+
+coinbox-monero:
+  stage: build
+  only:
+    changes:
+      - coinbox/monero/**/*
+  variables:
+    IMAGE_NAME: monero
+    IMAGE_DIR: coinbox/monero
+  script:
+    - make -f $CI_PROJECT_DIR/Makefile build-and-push
