@@ -1,10 +1,6 @@
 include:
   - remote: https://arp.to/@ci/docker.yml
 
-variables:
-  BEFORE_SCRIPT: |
-    docker login -u $DOCKER_HUB_USER -p $DOCKER_HUB_PASS
-
 coinbox-bitcoin:
   stage: build
   only:
@@ -14,4 +10,4 @@ coinbox-bitcoin:
     IMAGE_NAME: bitcoin
     IMAGE_DIR: coinbox/bitcoin
   script:
-    - make -f $CI_PROJECT_DIR build-and-push
+    - make -f $CI_PROJECT_DIR/Makefile build-and-push
