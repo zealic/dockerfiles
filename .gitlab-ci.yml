@@ -7,8 +7,9 @@ variables:
 
 coinbox-bitcoin:
   stage: build
-  changes:
-    - coinbox/bitcoin/**/*
+  only:
+    changes:
+      - coinbox/bitcoin/**/*
   variables:
     IMAGE_NAME: bitcoin
     IMAGE_DIR: coinbox/bitcoin
