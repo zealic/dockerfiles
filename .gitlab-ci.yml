@@ -1,0 +1,12 @@
+include:
+  - remote: https://arp.to/@ci/docker.yml
+
+coinbox-bitcoin:
+  stage: build
+  changes:
+    - coinbox/bitcoin/**/*
+  variables:
+    IMAGE_NAME: bitcoin
+    IMAGE_DIR: coinbox/bitcoin
+  script:
+    - make -f $CI_PROJECT_DIR build-and-push
