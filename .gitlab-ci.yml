@@ -12,6 +12,17 @@ coinbox-bitcoin:
   script:
     - make -f $CI_PROJECT_DIR/Makefile build-and-push
 
+coinbox-filecoin:
+  stage: build
+  only:
+    changes:
+      - devel/filecoin/**/*
+  variables:
+    IMAGE_NAME: filecoin
+    IMAGE_DIR: coinbox/filecoin
+  script:
+    - make -f $CI_PROJECT_DIR/Makefile build-and-push
+
 coinbox-litecoin:
   stage: build
   only:
