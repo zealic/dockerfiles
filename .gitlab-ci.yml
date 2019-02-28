@@ -1,6 +1,10 @@
 include:
   - remote: https://arp.to/@ci/docker.yml
 
+variables:
+  BEFORE_SCRIPT: |
+    docker login -u $DOCKER_HUB_USER -p $DOCKER_HUB_PASS
+
 coinbox-bitcoin:
   stage: build
   changes:
