@@ -10,7 +10,7 @@ COPY --from=source-docker /usr/local/bin/docker-entrypoint.sh /usr/local/bin/
 FROM frolvlad/alpine-glibc:alpine-${ALPINE_VER}
 COPY --from=source /usr/local/bin/* /usr/local/bin/
 
-RUN DEPS="make curl" \
+RUN DEPS="bash make curl" \
     apk add $DEPS
 
 ENTRYPOINT ["docker-entrypoint.sh"]
