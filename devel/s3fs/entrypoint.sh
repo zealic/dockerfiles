@@ -1,5 +1,19 @@
 #!/bin/sh
-if [[ -z "$@" ]]
+if [[ ! -e /dev/fuse ]]; then
+  mknod /dev/fuse c 0 0
+fi
+
+CAPS=`getpcaps 0 2>&1`
+if [[ `echo $CAPS | grep -c "cap_sys_admin" ` -eq 0 ]]; then
+  echo "Capability 'sys_admin' is required."
+  exit 1
+fi
+if [[ `echo $CAPS | grep -c "mknod" ` -eq 0 ]]; then
+  echo "Capability 'sys_admin' is required."
+  exit 1
+fi
+
+if [[ -z "$@" ]]; then
   if [[ -z $S3_BUCKET ]]; then
     echo "Environment variable 'S3_BUCKET' is required."
     exit 1
@@ -18,20 +32,7 @@ if [[ -z "$@" ]]
   fi
   export AWSACCESSKEYID=$AWS_ACCESS_KEY_ID
   export AWSSECRETACCESSKEY=$AWS_SECRET_ACCESS_KEY
+  exec /usr/local/bin/s3fs -f -d $S3_BUCKET $MOUNT_POINT
 fi
 
-if [[ ! -e /dev/fuse ]]; then
-  mknod /dev/fuse c 0 0
-fi
-
-CAPS=`getpcaps 0 2>&1`
-if [[ `echo $CAPS | grep -c "cap_sys_admin" ` -eq 0 ]]; then
-  echo "Capability 'sys_admin' is required."
-  exit 1
-fi
-if [[ `echo $CAPS | grep -c "mknod" ` -eq 0 ]]; then
-  echo "Capability 'sys_admin' is required."
-  exit 1
-fi
-
-exec /usr/bin/s3fs "$@"
+exec /usr/local/bin/s3fs "$@"
