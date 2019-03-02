@@ -11,9 +11,9 @@ This repository contains `Dockerfile` definitions for [s3fs][s3fs] Docker images
 * mount to /data
 ```shell
 docker run -e AWS_ACCESS_KEY_ID=<AWS_ACCESS_KEY> -e AWS_SECRET_ACCESS_KEY=<AWS_SECRET_KEY> \
-    -d --cap-add SYS_ADMIN \
-    zealic/s3fs \
-    -f -d -o <BUCKET_NAME> <MOUNT_POINT>
+-e S3_BUCKET=<BUCKET_NAME> -e MOUNT_POINT=/data
+    --cap-add SYS_ADMIN \
+    zealic/s3fs
 ```
 
 ## Tips
