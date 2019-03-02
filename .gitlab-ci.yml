@@ -55,3 +55,14 @@ devel-docker:
     IMAGE_DIR: devel/docker
   script:
     - make -f $CI_PROJECT_DIR/Makefile build-and-push
+
+devel-s3fs:
+  stage: build
+  only:
+    changes:
+      - devel/s3fs/**/*
+  variables:
+    IMAGE_NAME: s3fs
+    IMAGE_DIR: devel/s3fs
+  script:
+    - make -f $CI_PROJECT_DIR/Makefile build-and-push
