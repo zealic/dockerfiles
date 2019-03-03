@@ -1,13 +1,14 @@
-[![Build Status][travis-image]][travis-url]
+Toolkit Image
+====================
 
-# Toolkit
-Toolkit Docker Image
+This repository contains `Dockerfile` definitions for utils tools.
 
-All tools are [portable](https://en.wikipedia.org/wiki/Static_build).
+## Supported tags
 
-## Reference
+* [`latest` _(Dockerfile)_](Dockerfile)
+* [`hashicorp` _(Dockerfile.hashicorp)_](Dockerfile.hashicorp)
 
-* [Docker](https://www.docker.com)
 
-[travis-image]: https://travis-ci.org/zealic/toolkit.svg
-[travis-url]:   https://travis-ci.org/zealic/toolkit
+Getting started for this docker container at the [Docker Hub][registry].
+
+[registry]: https://hub.docker.com/r/zealic/docker
