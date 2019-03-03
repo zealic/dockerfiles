@@ -61,6 +61,16 @@ devel-s3fs:
   script:
     - make
 
+network-frp:
+  stage: build
+  only:
+    changes:
+      - network/frp/**/*
+  variables:
+    IMAGE_DIR: network/frp
+  script:
+    - make
+
 network-shadowsocks:
   stage: build
   only:
