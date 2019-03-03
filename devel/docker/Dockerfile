@@ -3,9 +3,14 @@ ARG COMPOSE_VER=1.23.2
 ARG ALPINE_VER=3.9
 
 ################################################################################
+# Source - Docker
+################################################################################
+FROM docker:${DOCKER_VER} AS source-docker
+
+
+################################################################################
 # Source
 ################################################################################
-FROM docker:${DOCKER_VER} AS source
 FROM docker/compose:${COMPOSE_VER} AS source
 # Docker
 COPY --from=source-docker /usr/local/bin/docker /usr/local/bin/
