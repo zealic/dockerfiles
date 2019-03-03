@@ -97,7 +97,7 @@ toolkit-hashicorp:
   variables:
     IMAGE_NAME: toolkit
     IMAGE_TAG: hashicorp
-    IMAGE_FILE: Dockerfile.builder
+    IMAGE_FILE: Dockerfile.hashicorp
     IMAGE_DIR: toolkit
   script:
     - make -f $CI_PROJECT_DIR/Makefile build-and-push
