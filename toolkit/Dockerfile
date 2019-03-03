@@ -1,4 +1,5 @@
-ARG SOURCE_IMAGE=alpine:3.9
+ARG ALPINE_VER=3.9
+ARG SOURCE_IMAGE=alpine:${ALPINE_VER}
 
 ################################################################################
 # Source - busybox
