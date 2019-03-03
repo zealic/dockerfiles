@@ -81,6 +81,16 @@ network-shadowsocks:
   script:
     - make
 
+network-whois3:
+  stage: build
+  only:
+    changes:
+      - network/whois3/**/*
+  variables:
+    IMAGE_DIR: network/whois3
+  script:
+    - make
+
 toolkit:
   stage: build
   only:
