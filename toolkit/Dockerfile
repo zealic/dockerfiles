@@ -11,16 +11,6 @@ RUN chmod +x /usr/local/bin/busybox
 
 
 ################################################################################
-# Source - curl
-################################################################################
-FROM $SOURCE_IMAGE AS source-curl
-ENV CURL_VER=7.30.0
-ENV CURL_URL=https://www.magicermine.com/demos/curl/curl/curl-${CURL_VER}.ermine.tar.bz2
-RUN wget -qO- $CURL_URL | tar -C /tmp -xvjf -
-RUN mv /tmp/curl-${CURL_VER}.ermine/curl.ermine /usr/local/bin/curl
-
-
-################################################################################
 # Source - confd
 ################################################################################
 FROM $SOURCE_IMAGE AS source-confd
@@ -142,7 +132,6 @@ RUN mv /tmp/awless /usr/local/bin/awless
 ################################################################################
 FROM $SOURCE_IMAGE AS sources
 COPY --from=source-busybox        /usr/local/bin/*  /usr/local/bin/
-COPY --from=source-curl           /usr/local/bin/*  /usr/local/bin/
 COPY --from=source-confd          /usr/local/bin/*  /usr/local/bin/
 COPY --from=source-gomplate       /usr/local/bin/*  /usr/local/bin/
 COPY --from=source-jq             /usr/local/bin/*  /usr/local/bin/
