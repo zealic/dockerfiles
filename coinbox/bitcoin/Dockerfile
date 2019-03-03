@@ -1,22 +1,24 @@
+ARG ALPINE_VER=3.9
 ################################################################################
 # Source
 ################################################################################
-FROM alpine:edge AS source-bx
+FROM alpine:${ALPINE_VER} AS source-bx
 
 ENV BASE_DIR /bitcoin
 
 RUN apk add --no-cache curl
 
-ENV BITCOIN_VERSION 0.17.1
-ENV BITCOIN_BINARY_URL https://bitcoin.org/bin/bitcoin-core-${BITCOIN_VERSION}/bitcoin-${BITCOIN_VERSION}-x86_64-linux-gnu.tar.gz
+ENV BITCOIN_VER=0.17.1
+ENV BITCOIN_URL=https://bitcoin.org/bin/bitcoin-core-${BITCOIN_VER}/bitcoin-${BITCOIN_VER}-x86_64-linux-gnu.tar.gz
 RUN mkdir ${BASE_DIR}
-RUN curl -sSL ${BITCOIN_BINARY_URL} \
+RUN curl -sSL ${BITCOIN_URL} \
         | tar --strip-components=1 -xzf - -C ${BASE_DIR}
 
-ENV BX_VERSION 3.2.0
-ENV BX_BINARY_URL https://github.com/libbitcoin/libbitcoin-explorer/releases/download/v${BX_VERSION}/bx-linux-x64-qrcode
-RUN curl -sSL -o ${BASE_DIR}/bin/bx ${BX_BINARY_URL} \
+ENV BX_VER 3.2.0
+ENV BX_URL https://github.com/libbitcoin/libbitcoin-explorer/releases/download/v${BX_VER}/bx-linux-x64-qrcode
+RUN curl -sSL -o ${BASE_DIR}/bin/bx ${BX_URL} \
     && chmod +x ${BASE_DIR}/bin/bx
+
 
 ################################################################################
 # Source
@@ -26,6 +28,7 @@ RUN apt-get update && apt-get install -y libssl1.0-dev
 RUN git clone https://github.com/exploitagency/vanitygen-plus.git \
   && cd vanitygen-plus \
   && make
+
 
 ################################################################################
 # Runtime
