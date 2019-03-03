@@ -25,9 +25,18 @@ RUN curl -sSL -o ${BASE_DIR}/bin/bx ${BX_URL} \
 ################################################################################
 FROM buildpack-deps:stretch AS source-vanitygen
 RUN apt-get update && apt-get install -y libssl1.0-dev
-RUN git clone https://github.com/exploitagency/vanitygen-plus.git \
-  && cd vanitygen-plus \
-  && make
+ENV VANITYGEN_PLUS_VER=1.53
+ENV VANITYGEN_PLUS_VER_PREFIX=PLUS
+ENV VANITYGEN_PLUS_REPO=https://github.com/exploitagency/vanitygen-plus.git
+ENV VANITYGEN_PLUS_DIR=/vanitygen-plus
+RUN mkdir $VANITYGEN_PLUS_DIR
+WORKDIR $VANITYGEN_PLUS_DIR
+RUN git init \
+  && git remote add origin $VANITYGEN_PLUS_REPO \
+  && git fetch --depth 1 origin $VANITYGEN_PLUS_VER_PREFIX$VANITYGEN_PLUS_VER \
+  && git reset --hard FETCH_HEAD
+
+RUN make
 
 
 ################################################################################
