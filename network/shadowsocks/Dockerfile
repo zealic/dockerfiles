@@ -1,15 +1,31 @@
-FROM alpine:3.9 as source
+ARG ALPINE_VER=3.9
+################################################################################
+# Source
+################################################################################
+FROM alpine:$ALPINE_VER AS source
 ENV SHADOWSOCKS_VER=3.2.4
-ENV SHADOWSOCKS_URL=https://github.com/shadowsocks/shadowsocks-libev/archive/v$SHADOWSOCKS_VER.tar.gz
-RUN export SS_DIR=shadowsocks-libev-$SHADOWSOCKS_VER \
-    && export SS_DEP="autoconf build-base curl libtool linux-headers openssl-dev" \
-    && export DEPS="bash" \
-    && apk add $DEPS $SS_DEP \
-    && curl -sSL $SS_URL | tar xz
-WORKDIR $SS_DIR
-RUN ./configure && make install
+ENV SHADOWSOCKS_REPO=https://github.com/shadowsocks/shadowsocks-libev.git
+RUN export DEPS=" \
+    autoconf automake pcre-dev asciidoc xmlto mbedtls-dev libsodium-dev c-ares-dev libev-dev \
+    git build-base curl libtool linux-headers openssl-dev" \
+    && apk add $DEPS
+ENV SHADOWSOCKS_DIR=/shadowsocks
+RUN mkdir $SHADOWSOCKS_DIR
+WORKDIR $SHADOWSOCKS_DIR
+RUN git init \
+  && git remote add origin $SHADOWSOCKS_REPO \
+  && git fetch origin v$SHADOWSOCKS_VER \
+  && git reset --hard FETCH_HEAD
+RUN git submodule update --init --recursive
+RUN ./autogen.sh && ./configure
+RUN make && make install
 
-FROM alpine:3.9
+
+################################################################################
+# Runtime
+################################################################################
+FROM alpine:$ALPINE_VER
+RUN apk add bash libev libsodium mbedtls pcre c-ares
 COPY --from=source /usr/local/bin/* /usr/local/bin/
 ADD ./run-ss /
 

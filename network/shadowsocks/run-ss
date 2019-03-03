@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 SS_PROGRAM=/usr/local/bin/ss-server
 
 ARGS=(

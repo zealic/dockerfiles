@@ -66,3 +66,14 @@ devel-s3fs:
     IMAGE_DIR: devel/s3fs
   script:
     - make -f $CI_PROJECT_DIR/Makefile build-and-push
+
+network-shadowsocks:
+  stage: build
+  only:
+    changes:
+      - network/shadowsocks/**/*
+  variables:
+    IMAGE_NAME: shadowsocks
+    IMAGE_DIR: network/shadowsocks
+  script:
+    - make -f $CI_PROJECT_DIR/Makefile build-and-push
