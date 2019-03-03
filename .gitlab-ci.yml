@@ -3,92 +3,92 @@ include:
 
 coinbox-bitcoin:
   stage: build
-  variables:
-    IMAGE_DIR: coinbox/bitcoin
   only:
     changes:
-      - $IMAGE_DIR/**/*
+      - coinbox/bitcoin/**/*
+  variables:
+    IMAGE_DIR: coinbox/bitcoin
   script:
     - make
 
 coinbox-filecoin:
   stage: build
-  variables:
-    IMAGE_DIR: coinbox/filecoin
   only:
     changes:
-      - $IMAGE_DIR/**/*
+      - coinbox/filecoin/**/*
+  variables:
+    IMAGE_DIR: coinbox/filecoin
   script:
     - make
 
 coinbox-litecoin:
   stage: build
-  variables:
-    IMAGE_DIR: coinbox/litecoin
   only:
     changes:
-      - $IMAGE_DIR/**/*
+      - coinbox/litecoin/**/*
+  variables:
+    IMAGE_DIR: coinbox/litecoin
   script:
     - make
 
 coinbox-monero:
   stage: build
-  variables:
-    IMAGE_DIR: coinbox/monero
   only:
     changes:
-      - $IMAGE_DIR/**/*
+      - coinbox/monero/**/*
+  variables:
+    IMAGE_DIR: coinbox/monero
   script:
     - make
 
 devel-docker:
   stage: build
-  variables:
-    IMAGE_DIR: devel/docker
   only:
     changes:
-      - $IMAGE_DIR/**/*
+      - devel/docker/**/*
+  variables:
+    IMAGE_DIR: devel/docker
   script:
     - make
 
 devel-s3fs:
   stage: build
-  variables:
-    IMAGE_DIR: devel/s3fs
   only:
     changes:
-      - $IMAGE_DIR/**/*
+      - devel/s3fs/**/*
+  variables:
+    IMAGE_DIR: devel/s3fs
   script:
     - make
 
 network-shadowsocks:
   stage: build
-  variables:
-    IMAGE_DIR: network/shadowsocks
   only:
     changes:
-      - $IMAGE_DIR/**/*
+      - network/shadowsocks/**/*
+  variables:
+    IMAGE_DIR: network/shadowsocks
   script:
     - make
 
 toolkit:
   stage: build
-  variables:
-    IMAGE_DIR: toolkit
   only:
     changes:
-      - $IMAGE_DIR/**/*
+      - toolkit/**/*
+  variables:
+    IMAGE_DIR: toolkit
   script:
     - make
 
 toolkit-hashicorp:
   stage: build
+  only:
+    changes:
+      - toolkit/**/*
   variables:
     IMAGE_DIR: toolkit
     IMAGE_TAG: hashicorp
     IMAGE_FILE: Dockerfile.hashicorp
-  only:
-    changes:
-      - $IMAGE_DIR/**/*
   script:
     - make
