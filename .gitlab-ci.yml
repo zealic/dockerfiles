@@ -77,3 +77,27 @@ network-shadowsocks:
     IMAGE_DIR: network/shadowsocks
   script:
     - make -f $CI_PROJECT_DIR/Makefile build-and-push
+
+toolkit:
+  stage: build
+  only:
+    changes:
+      - toolkit/**/*
+  variables:
+    IMAGE_NAME: toolkit
+    IMAGE_DIR: toolkit
+  script:
+    - make -f $CI_PROJECT_DIR/Makefile build-and-push
+
+toolkit-hashicorp:
+  stage: build
+  only:
+    changes:
+      - toolkit/**/*
+  variables:
+    IMAGE_NAME: toolkit
+    IMAGE_TAG: hashicorp
+    IMAGE_FILE: Dockerfile.builder
+    IMAGE_DIR: toolkit
+  script:
+    - make -f $CI_PROJECT_DIR/Makefile build-and-push
