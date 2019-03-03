@@ -1,16 +1,17 @@
+ARG ALPINE_VER=3.9
 ################################################################################
 # Source
 ################################################################################
-FROM alpine:edge AS source
+FROM alpine:${ALPINE_VER} AS source
 
 ENV BASE_DIR /litecoin
 
 RUN apk add --update curl
 
-ENV LITECOIN_VERSION 0.16.3
-ENV LITECOIN_BINARY_URL https://download.litecoin.org/litecoin-${LITECOIN_VERSION}/linux/litecoin-${LITECOIN_VERSION}-x86_64-linux-gnu.tar.gz
+ENV LITECOIN_VER=0.16.3
+ENV LITECOIN_URL=https://download.litecoin.org/litecoin-${LITECOIN_VER}/linux/litecoin-${LITECOIN_VER}-x86_64-linux-gnu.tar.gz
 RUN mkdir ${BASE_DIR}
-RUN curl -sSL ${LITECOIN_BINARY_URL} \
+RUN curl -sSL ${LITECOIN_URL} \
         | tar --strip-components=1 -xzf - -C ${BASE_DIR}
 
 

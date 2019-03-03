@@ -7,10 +7,10 @@ ENV BASE_DIR /monero
 
 RUN apk add --update curl
 
-ENV MONERO_VERSION 0.14.0.0
-ENV MONERO_BINARY_URL https://github.com/monero-project/monero/releases/download/v${MONERO_VERSION}/monero-linux-x64-v${MONERO_VERSION}.tar.bz2
+ENV MONERO_VER=0.14.0.0
+ENV MONERO_URL=https://github.com/monero-project/monero/releases/download/v${MONERO_VER}/monero-linux-x64-v${MONERO_VER}.tar.bz2
 RUN mkdir ${BASE_DIR}
-RUN curl -sSL ${MONERO_BINARY_URL} \
+RUN curl -sSL ${MONERO_URL} \
        | tar --strip-components=2 -xvjf - -C ${BASE_DIR}
 
 ################################################################################
