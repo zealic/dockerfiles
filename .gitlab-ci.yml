@@ -7,10 +7,9 @@ coinbox-bitcoin:
     changes:
       - coinbox/bitcoin/**/*
   variables:
-    IMAGE_NAME: bitcoin
     IMAGE_DIR: coinbox/bitcoin
   script:
-    - make -f $CI_PROJECT_DIR/Makefile build-and-push
+    - make
 
 coinbox-filecoin:
   stage: build
@@ -18,10 +17,9 @@ coinbox-filecoin:
     changes:
       - coinbox/filecoin/**/*
   variables:
-    IMAGE_NAME: filecoin
     IMAGE_DIR: coinbox/filecoin
   script:
-    - make -f $CI_PROJECT_DIR/Makefile build-and-push
+    - make
 
 coinbox-litecoin:
   stage: build
@@ -29,10 +27,9 @@ coinbox-litecoin:
     changes:
       - coinbox/litecoin/**/*
   variables:
-    IMAGE_NAME: litecoin
     IMAGE_DIR: coinbox/litecoin
   script:
-    - make -f $CI_PROJECT_DIR/Makefile build-and-push
+    - make
 
 coinbox-monero:
   stage: build
@@ -40,10 +37,9 @@ coinbox-monero:
     changes:
       - coinbox/monero/**/*
   variables:
-    IMAGE_NAME: monero
     IMAGE_DIR: coinbox/monero
   script:
-    - make -f $CI_PROJECT_DIR/Makefile build-and-push
+    - make
 
 devel-docker:
   stage: build
@@ -51,10 +47,9 @@ devel-docker:
     changes:
       - devel/docker/**/*
   variables:
-    IMAGE_NAME: docker
     IMAGE_DIR: devel/docker
   script:
-    - make -f $CI_PROJECT_DIR/Makefile build-and-push
+    - make
 
 devel-s3fs:
   stage: build
@@ -62,10 +57,9 @@ devel-s3fs:
     changes:
       - devel/s3fs/**/*
   variables:
-    IMAGE_NAME: s3fs
     IMAGE_DIR: devel/s3fs
   script:
-    - make -f $CI_PROJECT_DIR/Makefile build-and-push
+    - make
 
 network-shadowsocks:
   stage: build
@@ -73,10 +67,9 @@ network-shadowsocks:
     changes:
       - network/shadowsocks/**/*
   variables:
-    IMAGE_NAME: shadowsocks
     IMAGE_DIR: network/shadowsocks
   script:
-    - make -f $CI_PROJECT_DIR/Makefile build-and-push
+    - make
 
 toolkit:
   stage: build
@@ -84,10 +77,9 @@ toolkit:
     changes:
       - toolkit/**/*
   variables:
-    IMAGE_NAME: toolkit
     IMAGE_DIR: toolkit
   script:
-    - make -f $CI_PROJECT_DIR/Makefile build-and-push
+    - make
 
 toolkit-hashicorp:
   stage: build
@@ -95,9 +87,8 @@ toolkit-hashicorp:
     changes:
       - toolkit/**/*
   variables:
-    IMAGE_NAME: toolkit
+    IMAGE_DIR: toolkit
     IMAGE_TAG: hashicorp
     IMAGE_FILE: Dockerfile.hashicorp
-    IMAGE_DIR: toolkit
   script:
-    - make -f $CI_PROJECT_DIR/Makefile build-and-push
+    - make
