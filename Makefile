@@ -16,7 +16,7 @@ build-image:
 	@docker build -t $(REGISTRY_NAME) -f $(IMAGE_FILE) $(BUILD_OPTS) .
 	@# Push image in CI environment
 	@if [[ ! -z "$(CI)" ]]; then \
-		@$(MAKE) -f $(PWD)/Makefile push; \
+		$(MAKE) -f $(PWD)/Makefile push; \
 	fi
 
 push:
