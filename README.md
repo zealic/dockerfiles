@@ -27,7 +27,8 @@ Dockerfiles for images I've pushed to https://hub.docker.com/u/zealic
 
 Toolkit include utility tools for your docker.
 
-* [toolkit:latest(https://hub.docker.com/r/zealic/toolkit)
+
+* [toolkit:latest](https://hub.docker.com/r/zealic/toolkit)
   * busybox
   * confd
   * gomplate
@@ -47,3 +48,14 @@ Toolkit include utility tools for your docker.
   * packer
   * terraform
   * vault
+
+
+Example
+
+```dockerfile
+FROM alpine
+COPY --from=zealic/toolkit /usr/local/bin/busybox /usr/local/bin/busybox
+COPY myapp /
+ENTRYPOINT /usr/local/bin/busybox
+...
+```
