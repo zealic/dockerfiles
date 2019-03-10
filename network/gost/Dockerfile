@@ -1,17 +1,30 @@
-FROM zealic/alpine
-MAINTAINER zealic <zealic@gmail.com>
+ARG ALPINE_VER=3.9
+################################################################################
+# Source
+################################################################################
+FROM golang:1-alpine AS source
 
-RUN export BUILD_DEPS="go gcc git libc-dev" \
-    && export RUNTIME_DEPS="ca-certificates" \
-    && apk add --update $BUILD_DEPS $RUNTIME_DEPS \
-    && export GOPATH=/tmp/go \
-    && git clone --depth 1 https://github.com/ginuerzh/gost $GOPATH/src/github.com/ginuerzh/gost \
-    && cd $GOPATH/src/github.com/ginuerzh/gost \
-        && go get -d && go install \
-    && mv /tmp/go/bin/gost /usr/local/bin \
-    && apk del --purge $BUILD_DEPS \
-    && rm -rf /tmp/* /var/cache/apk/*
+RUN export DEPS=" \
+    curl tar musl-dev make libtool" \
+    && apk add $DEPS
+ENV GOST_VER=2.7.2
+ENV GOST_URL=https://github.com/ginuerzh/gost/archive/v${GOST_VER}.tar.gz
+ENV GOST_DIR=/gost
 
-ENTRYPOINT []
-CMD ["/usr/local/bin/gost"]
+RUN mkdir $GOST_DIR
+WORKDIR $GOST_DIR
+RUN curl -sSL $GOST_URL | tar --strip-components=1 -C $GOST_DIR -xvzf -
+RUN go build -mod=vendor -o gost cmd/gost/*.go
+RUN mv gost /usr/local/bin/
 
+
+################################################################################
+# Runtime
+################################################################################
+FROM alpine:$ALPINE_VER
+RUN export DEPS=" \
+    ca-certificates" \
+    && apk add $DEPS
+COPY --from=source /usr/local/bin/* /usr/local/bin/
+
+ENTRYPOINT ["/usr/local/bin/gost"]

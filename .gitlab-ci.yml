@@ -91,6 +91,16 @@ network-frp:
   script:
     - make
 
+network-gost:
+  stage: build
+  only:
+    changes:
+      - network/gost/**/*
+  variables:
+    IMAGE_DIR: network/gost
+  script:
+    - make
+
 network-openvpn:
   stage: build
   only:
