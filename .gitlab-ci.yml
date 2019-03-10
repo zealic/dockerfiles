@@ -61,6 +61,16 @@ devel-s3fs:
   script:
     - make
 
+network-chinadns:
+  stage: build
+  only:
+    changes:
+      - network/chinadns/**/*
+  variables:
+    IMAGE_DIR: network/chinadns
+  script:
+    - make
+
 network-dnsforwarder:
   stage: build
   only:
