@@ -1,19 +1,32 @@
-FROM alpine
-MAINTAINER zealic <zealic@gmail.com>
+ARG ALPINE_VER=3.9
+################################################################################
+# Source
+################################################################################
+FROM alpine:$ALPINE_VER AS source
+ENV SHADOWVPN_VER=master
+ENV SHADOWVPN_REPO=https://github.com/WeShadowsocks/ShadowVPN.git
+RUN export DEPS=" \
+    autoconf automake build-base gawk git libtool linux-headers" \
+    && apk add $DEPS
+ENV SHADOWVPN_DIR=/shadowvpn
+RUN mkdir $SHADOWVPN_DIR
+WORKDIR $SHADOWVPN_DIR
+RUN git init \
+  && git remote add origin $SHADOWVPN_REPO \
+  && git fetch origin $SHADOWVPN_VER \
+  && git reset --hard FETCH_HEAD
+RUN git submodule update --init --recursive
+RUN ./autogen.sh
+RUN ./configure --enable-static --sysconfdir=/etc
+RUN make install
 
-ENV BUILD_DEPS="autoconf automake build-base gawk git libtool linux-headers"
-RUN apk add -U $BUILD_DEPS iptables \
-    && git clone --recursive https://github.com/WeShadowsocks/ShadowVPN.git \
-    && cd ShadowVPN \
-    && ./autogen.sh \
-    && ./configure --enable-static --sysconfdir=/etc \
-    && make install \
-    && cd .. \
-    && rm -rf ShadowVPN \
-    && apk del $BUILD_DEPS
 
-ADD ./bin/* /usr/local/bin/
+################################################################################
+# Runtime
+################################################################################
+FROM alpine:$ALPINE_VER
+ADD ./entrypoint.sh /
+COPY --from=source /usr/local/bin/* /usr/local/bin/
 
 EXPOSE 1123/udp
-
-ENTRYPOINT ["/usr/local/bin/run-vpn"]
+ENTRYPOINT ["/entrypoint.sh"]

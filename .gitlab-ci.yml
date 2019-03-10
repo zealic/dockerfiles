@@ -121,6 +121,16 @@ network-shadowsocks:
   script:
     - make
 
+network-shadowvpn:
+  stage: build
+  only:
+    changes:
+      - network/shadowvpn/**/*
+  variables:
+    IMAGE_DIR: network/shadowvpn
+  script:
+    - make
+
 network-whois3:
   stage: build
   only:
