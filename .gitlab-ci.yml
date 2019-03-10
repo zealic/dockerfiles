@@ -61,6 +61,16 @@ devel-s3fs:
   script:
     - make
 
+network-dnsforwarder:
+  stage: build
+  only:
+    changes:
+      - network/dnsforwarder/**/*
+  variables:
+    IMAGE_DIR: network/dnsforwarder
+  script:
+    - make
+
 network-frp:
   stage: build
   only:
