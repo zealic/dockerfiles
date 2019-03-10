@@ -71,6 +71,16 @@ network-frp:
   script:
     - make
 
+network-openvpn:
+  stage: build
+  only:
+    changes:
+      - network/openvpn/**/*
+  variables:
+    IMAGE_DIR: network/openvpn
+  script:
+    - make
+
 network-shadowsocks:
   stage: build
   only:

@@ -1,9 +1,8 @@
 # Alpine network performance better than Debian jessie
-FROM alpine:3.3
-MAINTAINER zealic <zealic@gmail.com>
+ARG ALPINE_VER=3.9
+FROM alpine:${ALPINE_VER}
 
-RUN echo "http://dl-4.alpinelinux.org/alpine/edge/community/" >> /etc/apk/repositories \
-  && apk add --update openvpn iptables bash easy-rsa tcpdump mtr \
+RUN apk add openvpn iptables bash easy-rsa tcpdump mtr \
   && ln -s /usr/share/easy-rsa/easyrsa /usr/local/bin \
   && rm -rf /tmp/* /var/tmp/* /var/cache/apk/*
 
