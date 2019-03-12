@@ -25,7 +25,8 @@ RUN make && make install
 # Runtime
 ################################################################################
 FROM alpine:$ALPINE_VER
-RUN apk add bash libev libsodium mbedtls pcre c-ares
+RUN DEPS="bash libev libsodium mbedtls pcre c-ares" \
+    apk add $DEPS
 COPY --from=source /usr/local/bin/* /usr/local/bin/
 ADD ./entrypoint.sh /
 
