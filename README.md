@@ -19,7 +19,13 @@ Dockerfiles for images I've pushed to https://hub.docker.com/u/zealic
 
 ## Network
 
+* [chinadns](https://hub.docker.com/r/zealic/chinadns)
+* [dnsforwarder](https://hub.docker.com/r/zealic/dnsforwarder)
 * [frp](https://hub.docker.com/r/zealic/frp)
+* [gost](https://hub.docker.com/r/zealic/gost)
+* [openvpn](https://hub.docker.com/r/zealic/openvpn)
+* [shadowsocks](https://hub.docker.com/r/zealic/shadowsocks)
+* [shadowvpn](https://hub.docker.com/r/zealic/shadowvpn)
 * [whois3](https://hub.docker.com/r/zealic/whois3)
 
 
