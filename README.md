@@ -58,10 +58,10 @@ Toolkit include utility tools for your docker.
 
 Example
 
-```dockerfile
-FROM alpine
-COPY --from=zealic/toolkit /usr/local/bin/busybox /usr/local/bin/busybox
-COPY myapp /
-ENTRYPOINT /usr/local/bin/busybox
-...
-```
+  ```dockerfile
+  FROM alpine
+  COPY --from=zealic/toolkit /usr/local/bin/busybox /usr/local/bin/busybox
+  COPY myapp /
+  ENTRYPOINT /usr/local/bin/busybox
+  ...
+  ```

@@ -23,4 +23,4 @@ push:
 	@if [[ ! -z "$(DOCKER_HUB_USER)" ]]; then \
 		docker login -u $(DOCKER_HUB_USER) -p $(DOCKER_HUB_PASS); \
 	fi
-	docker push $(REGISTRY_NAME); \
+	docker push $(REGISTRY_NAME)

@@ -27,6 +27,6 @@ RUN make && make install
 FROM alpine:$ALPINE_VER
 RUN apk add bash libev libsodium mbedtls pcre c-ares
 COPY --from=source /usr/local/bin/* /usr/local/bin/
-ADD ./run-ss /
+ADD ./entrypoint.sh /
 
-ENTRYPOINT ["/run-ss"]
+ENTRYPOINT ["/entrypoint.sh"]
