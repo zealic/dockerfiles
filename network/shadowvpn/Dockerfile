@@ -13,7 +13,7 @@ RUN mkdir $SHADOWVPN_DIR
 WORKDIR $SHADOWVPN_DIR
 RUN git init \
   && git remote add origin $SHADOWVPN_REPO \
-  && git fetch origin $SHADOWVPN_VER \
+  && git fetch origin --depth 1 $SHADOWVPN_VER \
   && git reset --hard FETCH_HEAD
 RUN git submodule update --init --recursive
 RUN ./autogen.sh

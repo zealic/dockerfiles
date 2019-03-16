@@ -13,7 +13,7 @@ RUN mkdir $DNSFORWARDER_DIR
 WORKDIR $DNSFORWARDER_DIR
 RUN git init \
   && git remote add origin $DNSFORWARDER_REPO \
-  && git fetch origin $DNSFORWARDER_VER \
+  && git fetch origin --depth 1 $DNSFORWARDER_VER \
   && git reset --hard FETCH_HEAD
 RUN ./configure
 RUN make

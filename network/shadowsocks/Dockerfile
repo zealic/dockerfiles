@@ -14,7 +14,7 @@ RUN mkdir $SHADOWSOCKS_DIR
 WORKDIR $SHADOWSOCKS_DIR
 RUN git init \
   && git remote add origin $SHADOWSOCKS_REPO \
-  && git fetch origin v$SHADOWSOCKS_VER \
+  && git fetch origin --depth 1 v$SHADOWSOCKS_VER \
   && git reset --hard FETCH_HEAD
 RUN git submodule update --init --recursive
 RUN ./autogen.sh && ./configure
