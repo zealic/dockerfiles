@@ -27,12 +27,12 @@ Dockerfiles for images I've pushed to https://hub.docker.com/u/zealic
 * [shadowsocks](https://hub.docker.com/r/zealic/shadowsocks)
 * [shadowvpn](https://hub.docker.com/r/zealic/shadowvpn)
 * [whois3](https://hub.docker.com/r/zealic/whois3)
+* [zerotier](https://hub.docker.com/r/zealic/zerotier)
 
 
 ## Toolkit
 
 Toolkit include utility tools for your docker.
-
 
 * [toolkit:latest](https://hub.docker.com/r/zealic/toolkit)
   * busybox
@@ -56,7 +56,7 @@ Toolkit include utility tools for your docker.
   * vault
 
 
-Example
+Toolkit example:
 
   ```dockerfile
   FROM alpine

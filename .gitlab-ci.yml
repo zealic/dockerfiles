@@ -141,6 +141,16 @@ network-whois3:
   script:
     - make
 
+network-zerotier:
+  stage: build
+  only:
+    changes:
+      - network/zerotier/**/*
+  variables:
+    IMAGE_DIR: network/zerotier
+  script:
+    - make
+
 toolkit:
   stage: build
   only:
