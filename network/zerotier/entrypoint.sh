@@ -7,7 +7,8 @@ if [ ! -e /dev/net/tun ]; then
 fi
 
 if [[ ! -z ZEROTIER_NETWORK ]]; then
-  touch /var/lib/zerotier-one/$ZEROTIER_NETWORK.conf
+  mkdir -p /var/lib/zerotier-one/networks.d
+  touch /var/lib/zerotier-one/networks.d/$ZEROTIER_NETWORK.conf
 fi
 
 exec /usr/local/bin/zerotier-one
