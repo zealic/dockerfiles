@@ -25,6 +25,8 @@ RUN make install
 # Runtime
 ################################################################################
 FROM alpine:$ALPINE_VER
+RUN export DEPS="iptables" \
+    && apk add $DEPS
 ADD ./entrypoint.sh /
 COPY --from=source /usr/local/bin/* /usr/local/bin/
 COPY --from=source /etc/shadowvpn/* /etc/shadowvpn/
