@@ -1,13 +1,12 @@
 #!/bin/sh
-
 if [ ! -f /etc/ocserv/server-key.pem ] || [ ! -f /etc/ocserv/server-cert.pem ]; then
 	# Check environment variables
 	if [ -z "$CA_CN" ]; then
-		CA_CN="VPN CA"
+		CA_CN="Great Water Mall CA"
 	fi
 
 	if [ -z "$CA_ORG" ]; then
-		CA_ORG="Big Corp"
+		CA_ORG="Big Brother"
 	fi
 
 	if [ -z "$CA_DAYS" ]; then
@@ -19,7 +18,7 @@ if [ ! -f /etc/ocserv/server-key.pem ] || [ ! -f /etc/ocserv/server-cert.pem ]; 
 	fi
 
 	if [ -z "$SRV_ORG" ]; then
-		SRV_ORG="MyCompany"
+		SRV_ORG="Big Brother"
 	fi
 
 	if [ -z "$SRV_DAYS" ]; then
@@ -69,6 +68,19 @@ iptables -A FORWARD -p tcp --tcp-flags SYN,RST SYN -j TCPMSS --clamp-mss-to-pmtu
 mkdir -p /dev/net
 mknod /dev/net/tun c 10 200
 chmod 600 /dev/net/tun
+
+# Setup config
+if [ ! -f /etc/ocserv/ocserv.conf ]; then
+  cp /etc/ocserv/simple.config /etc/ocserv/ocserv.conf
+  sed -i 's/\.\/sample\.passwd/\/etc\/ocserv\/ocpasswd/' /etc/ocserv/ocserv.conf
+  sed -i 's/\(max-same-clients = \)2/\110/' /etc/ocserv/ocserv.conf
+  sed -i 's/\.\.\/tests/\/etc\/ocserv/' /etc/ocserv/ocserv.conf
+  sed -i 's/#\(compression.*\)/\1/' /etc/ocserv/ocserv.conf
+  sed -i '/^ipv4-network = /{s/192.168.1.0/192.168.99.0/}' /etc/ocserv/ocserv.conf
+  sed -i 's/192.168.1.2/8.8.8.8/' /etc/ocserv/ocserv.conf
+  sed -i 's/^route/#route/' /etc/ocserv/ocserv.conf
+  sed -i 's/^no-route/#no-route/' /etc/ocserv/ocserv.conf
+fi
 
 # Run OpennConnect Server
 exec "$@"

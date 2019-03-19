@@ -101,6 +101,16 @@ network-gost:
   script:
     - make
 
+network-ocserv:
+  stage: build
+  only:
+    changes:
+      - network/ocserv/**/*
+  variables:
+    IMAGE_DIR: network/ocserv
+  script:
+    - make
+
 network-openvpn:
   stage: build
   only:
