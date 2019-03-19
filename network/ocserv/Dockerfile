@@ -25,7 +25,7 @@ RUN mkdir -p /etc/ocserv && cp ./doc/sample.config /etc/ocserv/sample.config
 ################################################################################
 FROM alpine:$ALPINE_VER
 RUN export DEPS=" \
-    gnutls-utils iptables openssl libnl3 libseccomp readline \
+    bash gnutls-utils iptables openssl libnl3 libseccomp readline \
     protobuf-c nss linux-pam libev lz4-libs" \
     && apk add $DEPS
 COPY --from=source /usr/local/bin/* /usr/local/bin/
