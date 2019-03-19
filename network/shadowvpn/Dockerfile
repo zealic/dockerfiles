@@ -27,6 +27,7 @@ RUN make install
 FROM alpine:$ALPINE_VER
 ADD ./entrypoint.sh /
 COPY --from=source /usr/local/bin/* /usr/local/bin/
+COPY --from=source /etc/shadowvpn/* /etc/shadowvpn/
 
 EXPOSE 1123/udp
 ENTRYPOINT ["/entrypoint.sh"]
