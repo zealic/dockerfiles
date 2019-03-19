@@ -4,7 +4,8 @@ ARG ALPINE_VER=3.9
 ################################################################################
 FROM alpine:$ALPINE_VER AS source
 RUN export DEPS=" \
-    tar musl-dev iptables gnutls-dev readline-dev protobuf-dev libev-dev \
+    tar musl-dev iptables gnutls-dev readline-dev protobuf-dev \
+    protobuf-c-dev nss-dev linux-pam-dev libev-dev \
     libnl3-dev lz4-dev libseccomp-dev xz openssl gcc autoconf make linux-headers" \
     && apk add $DEPS
 
@@ -24,7 +25,8 @@ RUN mkdir -p /etc/ocserv && cp ./doc/sample.config /etc/ocserv/sample.config
 ################################################################################
 FROM alpine:$ALPINE_VER
 RUN export DEPS=" \
-    gnutls iptables openssl libnl3 libseccomp readline libev lz4-libs" \
+    gnutls-utils iptables openssl libnl3 libseccomp readline \
+    protobuf-c nss linux-pam libev lz4-libs" \
     && apk add $DEPS
 COPY --from=source /usr/local/bin/* /usr/local/bin/
 COPY --from=source /etc/ocserv/sample.config /etc/ocserv/
