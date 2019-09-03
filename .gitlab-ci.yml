@@ -1,8 +1,8 @@
 include:
   - remote: https://arp.to/@ci/docker.yml
   - local: coinbox/jobs.yml
-  - local: devel/job.yml
-  - local: network/job.yml
+  - local: devel/jobs.yml
+  - local: network/jobs.yml
 
 toolkit:
   stage: build
