@@ -16,10 +16,10 @@ build-image:
 	@docker build -t $(REGISTRY_NAME) -f $(IMAGE_FILE) $(BUILD_OPTS) .
 	@# Push image in CI environment
 	@if [[ ! -z "$(CI)" ]]; then \
-		$(MAKE) -f $(PWD)/Makefile push; \
+		$(MAKE) -f $(PWD)/Makefile push-dockerhub; \
 	fi
 
-push:
+push-dockerhub:
 	@if [[ ! -z "$(DOCKER_HUB_USER)" ]]; then \
 		docker login -u $(DOCKER_HUB_USER) -p $(DOCKER_HUB_PASS); \
 	fi

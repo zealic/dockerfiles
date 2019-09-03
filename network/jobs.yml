@@ -1,0 +1,99 @@
+network-chinadns:
+  stage: build
+  only:
+    changes:
+      - network/chinadns/**/*
+  variables:
+    IMAGE_DIR: network/chinadns
+  script:
+    - make
+
+network-dnsforwarder:
+  stage: build
+  only:
+    changes:
+      - network/dnsforwarder/**/*
+  variables:
+    IMAGE_DIR: network/dnsforwarder
+  script:
+    - make
+
+network-frp:
+  stage: build
+  only:
+    changes:
+      - network/frp/**/*
+  variables:
+    IMAGE_DIR: network/frp
+  script:
+    - make
+
+network-gost:
+  stage: build
+  only:
+    changes:
+      - network/gost/**/*
+  variables:
+    IMAGE_DIR: network/gost
+  script:
+    - make
+
+network-ocserv:
+  stage: build
+  only:
+    changes:
+      - network/ocserv/**/*
+  variables:
+    IMAGE_DIR: network/ocserv
+  script:
+    - make
+
+network-openvpn:
+  stage: build
+  only:
+    changes:
+      - network/openvpn/**/*
+  variables:
+    IMAGE_DIR: network/openvpn
+  script:
+    - make
+
+network-shadowsocks:
+  stage: build
+  only:
+    changes:
+      - network/shadowsocks/**/*
+  variables:
+    IMAGE_DIR: network/shadowsocks
+  script:
+    - make
+
+network-shadowvpn:
+  stage: build
+  only:
+    changes:
+      - network/shadowvpn/**/*
+  variables:
+    IMAGE_DIR: network/shadowvpn
+  script:
+    - make
+
+network-whois3:
+  stage: build
+  only:
+    changes:
+      - network/whois3/**/*
+  variables:
+    IMAGE_DIR: network/whois3
+  script:
+    - make
+
+network-zerotier:
+  stage: build
+  only:
+    changes:
+      - network/zerotier/**/*
+  variables:
+    IMAGE_DIR: network/zerotier
+  script:
+    - make

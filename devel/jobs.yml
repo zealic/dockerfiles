@@ -1,0 +1,19 @@
+devel-docker:
+  stage: build
+  only:
+    changes:
+      - devel/docker/**/*
+  variables:
+    IMAGE_DIR: devel/docker
+  script:
+    - make
+
+devel-s3fs:
+  stage: build
+  only:
+    changes:
+      - devel/s3fs/**/*
+  variables:
+    IMAGE_DIR: devel/s3fs
+  script:
+    - make

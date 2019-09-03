@@ -1,0 +1,39 @@
+coinbox-bitcoin:
+  stage: build
+  only:
+    changes:
+      - coinbox/bitcoin/**/*
+  variables:
+    IMAGE_DIR: coinbox/bitcoin
+  script:
+    - make
+
+coinbox-filecoin:
+  stage: build
+  only:
+    changes:
+      - coinbox/filecoin/**/*
+  variables:
+    IMAGE_DIR: coinbox/filecoin
+  script:
+    - make
+
+coinbox-litecoin:
+  stage: build
+  only:
+    changes:
+      - coinbox/litecoin/**/*
+  variables:
+    IMAGE_DIR: coinbox/litecoin
+  script:
+    - make
+
+coinbox-monero:
+  stage: build
+  only:
+    changes:
+      - coinbox/monero/**/*
+  variables:
+    IMAGE_DIR: coinbox/monero
+  script:
+    - make
