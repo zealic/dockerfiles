@@ -8,7 +8,7 @@ ENV BASE_DIR /bitcoin
 
 RUN apk add --no-cache curl
 
-ENV BITCOIN_VER=0.17.1
+ENV BITCOIN_VER=0.18.1
 ENV BITCOIN_URL=https://bitcoin.org/bin/bitcoin-core-${BITCOIN_VER}/bitcoin-${BITCOIN_VER}-x86_64-linux-gnu.tar.gz
 RUN mkdir ${BASE_DIR}
 RUN curl -sSL ${BITCOIN_URL} \
