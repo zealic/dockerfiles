@@ -1,8 +1,9 @@
 coinbox-bitcoin:
   stage: build
-  only:
-    changes:
-      - coinbox/bitcoin/**/*
+  rules:
+    - changes:
+        - coinbox/bitcoin/**/*
+      when: always
   variables:
     IMAGE_DIR: coinbox/bitcoin
   script:
@@ -10,9 +11,10 @@ coinbox-bitcoin:
 
 coinbox-filecoin:
   stage: build
-  only:
-    changes:
-      - coinbox/filecoin/**/*
+  rules:
+    - changes:
+        - coinbox/filecoin/**/*
+      when: always
   variables:
     IMAGE_DIR: coinbox/filecoin
   script:
@@ -20,9 +22,10 @@ coinbox-filecoin:
 
 coinbox-litecoin:
   stage: build
-  only:
-    changes:
-      - coinbox/litecoin/**/*
+  rules:
+    - changes:
+        - coinbox/litecoin/**/*
+      when: always
   variables:
     IMAGE_DIR: coinbox/litecoin
   script:
@@ -30,9 +33,10 @@ coinbox-litecoin:
 
 coinbox-monero:
   stage: build
-  only:
-    changes:
-      - coinbox/monero/**/*
+  rules:
+    - changes:
+        - coinbox/monero/**/*
+      when: always
   variables:
     IMAGE_DIR: coinbox/monero
   script:
