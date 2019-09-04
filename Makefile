@@ -21,7 +21,7 @@ build-image:
 
 push:
 	@if [[ ! "$(CI_COMMIT_REF_NAME)" = "master" ]]; then \
-		echo "Current branch is $(CI_COMMIT_REF_NAME), push ignored."
+		echo "Current branch is $(CI_COMMIT_REF_NAME), push ignored."; \
 		exit 0; \
 	fi
 	@$(MAKE) -f $(PWD)/Makefile push-dockerhub
