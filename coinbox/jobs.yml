@@ -15,12 +15,12 @@ coinbox-bitcoin:
 coinbox-filecoin:
   stage: build
   rules:
-    - when: manual
     - if: '$CI_PIPELINE_SOURCE == "web"'
       when: always
     - changes:
         - coinbox/filecoin/**/*
       when: always
+    - when: manual
   variables:
     IMAGE_DIR: coinbox/filecoin
   script:
@@ -29,12 +29,12 @@ coinbox-filecoin:
 coinbox-litecoin:
   stage: build
   rules:
-    - when: manual
     - if: '$CI_PIPELINE_SOURCE == "web"'
       when: always
     - changes:
         - coinbox/litecoin/**/*
       when: always
+    - when: manual
   variables:
     IMAGE_DIR: coinbox/litecoin
   script:
@@ -43,12 +43,12 @@ coinbox-litecoin:
 coinbox-monero:
   stage: build
   rules:
-    - when: manual
     - if: '$CI_PIPELINE_SOURCE == "web"'
       when: always
     - changes:
         - coinbox/monero/**/*
       when: always
+    - when: manual
   variables:
     IMAGE_DIR: coinbox/monero
   script:
