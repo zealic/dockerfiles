@@ -8,7 +8,7 @@ ENV BASE_DIR /litecoin
 
 RUN apk add --update curl
 
-ENV LITECOIN_VER=0.16.3
+ENV LITECOIN_VER=0.17.1
 ENV LITECOIN_URL=https://download.litecoin.org/litecoin-${LITECOIN_VER}/linux/litecoin-${LITECOIN_VER}-x86_64-linux-gnu.tar.gz
 RUN mkdir ${BASE_DIR}
 RUN curl -sSL ${LITECOIN_URL} \

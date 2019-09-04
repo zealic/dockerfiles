@@ -1,6 +1,8 @@
 coinbox-bitcoin:
   stage: build
   only:
+    refs:
+      - master
     changes:
       - coinbox/bitcoin/**/*
   variables:
@@ -11,6 +13,8 @@ coinbox-bitcoin:
 coinbox-filecoin:
   stage: build
   only:
+    refs:
+      - master
     changes:
       - coinbox/filecoin/**/*
   variables:
@@ -21,6 +25,8 @@ coinbox-filecoin:
 coinbox-litecoin:
   stage: build
   only:
+    refs:
+      - master
     changes:
       - coinbox/litecoin/**/*
   variables:
@@ -31,6 +37,8 @@ coinbox-litecoin:
 coinbox-monero:
   stage: build
   only:
+    refs:
+      - master
     changes:
       - coinbox/monero/**/*
   variables:
