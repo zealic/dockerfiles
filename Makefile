@@ -1,3 +1,4 @@
+ROOTMAKE=$(MAKE) -f $(abspath $(lastword $(MAKEFILE_LIST)))
 IMAGE_NAME?=$(shell basename $(IMAGE_DIR))
 IMAGE_TAG?=latest
 IMAGE_FILE?=Dockerfile
@@ -10,13 +11,13 @@ endif
 
 
 build:
-	@$(MAKE) -C $(IMAGE_DIR) -f $(PWD)/Makefile build-image
+	@$(ROOTMAKE) -C $(IMAGE_DIR) build-image
 
 build-image:
 	@docker build -t $(REGISTRY_NAME) -f $(IMAGE_FILE) $(BUILD_OPTS) .
 	@# Push image in CI environment
 	@if [[ ! -z "$(CI)" ]]; then \
-		$(MAKE) -f $(PWD)/Makefile push; \
+		$(ROOTMAKE) push; \
 	fi
 
 push:
@@ -24,7 +25,7 @@ push:
 		echo "Current branch is $(CI_COMMIT_REF_NAME), push ignored."; \
 		exit 0; \
 	fi
-	@$(MAKE) -f $(PWD)/Makefile push-dockerhub
+	@$(-f $(ROOT_DIR)/Makefile ) push-dockerhub
 
 push-dockerhub:
 	@echo Push to Github...
