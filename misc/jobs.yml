@@ -1,24 +1,20 @@
 toolkit:
   stage: build
   only:
-    refs:
-      - master
     changes:
-      - toolkit/**/*
+      - misc/toolkit/**/*
   variables:
-    IMAGE_DIR: toolkit
+    IMAGE_DIR: misc/toolkit
   script:
     - make
 
 toolkit-hashicorp:
   stage: build
   only:
-    refs:
-      - master
     changes:
       - misc/toolkit/**/*
   variables:
-    IMAGE_DIR: toolkit
+    IMAGE_DIR: misc/toolkit
     IMAGE_TAG: hashicorp
     IMAGE_FILE: Dockerfile.hashicorp
   script:

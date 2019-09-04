@@ -1,8 +1,6 @@
 devel-docker:
   stage: build
   only:
-    refs:
-      - master
     changes:
       - devel/docker/**/*
   variables:
@@ -13,8 +11,6 @@ devel-docker:
 devel-s3fs:
   stage: build
   only:
-    refs:
-      - master
     changes:
       - devel/s3fs/**/*
   variables:
