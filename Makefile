@@ -24,11 +24,12 @@ push:
 	@if [[ ! "$(CI_COMMIT_REF_NAME)" = "master" ]]; then \
 		echo "Current branch is $(CI_COMMIT_REF_NAME), push ignored."; \
 		exit 0; \
+	else \
+		$(ROOTMAKE) push-dockerhub; \
 	fi
-	@$(ROOTMAKE) push-dockerhub
 
 push-dockerhub:
-	@echo Push to Github...
+	@echo Push to Dockerhub...
 	@if [[ ! -z "$(DOCKER_HUB_USER)" ]]; then \
 		docker login -u $(DOCKER_HUB_USER) -p $(DOCKER_HUB_PASS); \
 	fi
