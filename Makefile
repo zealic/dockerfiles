@@ -25,7 +25,7 @@ push:
 		echo "Current branch is $(CI_COMMIT_REF_NAME), push ignored."; \
 		exit 0; \
 	fi
-	@$(-f $(ROOT_DIR)/Makefile ) push-dockerhub
+	@$(ROOTMAKE) push-dockerhub
 
 push-dockerhub:
 	@echo Push to Github...
