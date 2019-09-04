@@ -1,6 +1,8 @@
 toolkit:
   stage: build
   only:
+    refs:
+      - master
     changes:
       - toolkit/**/*
   variables:
@@ -11,8 +13,10 @@ toolkit:
 toolkit-hashicorp:
   stage: build
   only:
+    refs:
+      - master
     changes:
-      - toolkit/**/*
+      - misc/toolkit/**/*
   variables:
     IMAGE_DIR: toolkit
     IMAGE_TAG: hashicorp

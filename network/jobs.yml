@@ -1,6 +1,8 @@
 network-chinadns:
   stage: build
   only:
+    refs:
+      - master
     changes:
       - network/chinadns/**/*
   variables:
@@ -11,6 +13,8 @@ network-chinadns:
 network-dnsforwarder:
   stage: build
   only:
+    refs:
+      - master
     changes:
       - network/dnsforwarder/**/*
   variables:
@@ -21,6 +25,8 @@ network-dnsforwarder:
 network-frp:
   stage: build
   only:
+    refs:
+      - master
     changes:
       - network/frp/**/*
   variables:
@@ -31,6 +37,8 @@ network-frp:
 network-gost:
   stage: build
   only:
+    refs:
+      - master
     changes:
       - network/gost/**/*
   variables:
@@ -41,6 +49,8 @@ network-gost:
 network-ocserv:
   stage: build
   only:
+    refs:
+      - master
     changes:
       - network/ocserv/**/*
   variables:
@@ -51,6 +61,8 @@ network-ocserv:
 network-openvpn:
   stage: build
   only:
+    refs:
+      - master
     changes:
       - network/openvpn/**/*
   variables:
@@ -61,6 +73,8 @@ network-openvpn:
 network-shadowsocks:
   stage: build
   only:
+    refs:
+      - master
     changes:
       - network/shadowsocks/**/*
   variables:
@@ -71,6 +85,8 @@ network-shadowsocks:
 network-shadowvpn:
   stage: build
   only:
+    refs:
+      - master
     changes:
       - network/shadowvpn/**/*
   variables:
@@ -81,6 +97,8 @@ network-shadowvpn:
 network-whois3:
   stage: build
   only:
+    refs:
+      - master
     changes:
       - network/whois3/**/*
   variables:
@@ -91,6 +109,8 @@ network-whois3:
 network-zerotier:
   stage: build
   only:
+    refs:
+      - master
     changes:
       - network/zerotier/**/*
   variables:

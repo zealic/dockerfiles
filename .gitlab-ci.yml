@@ -3,4 +3,4 @@ include:
   - local: coinbox/jobs.yml
   - local: devel/jobs.yml
   - local: network/jobs.yml
-  - local: jobs.yml
+  - local: misc/jobs.yml
