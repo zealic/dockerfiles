@@ -1,7 +1,9 @@
+ARG ALPINE_VER=3.9
+
 ################################################################################
 # Source
 ################################################################################
-FROM alpine:edge AS source
+FROM alpine:${ALPINE_VER} AS source
 
 ENV BASE_DIR /monero
 
