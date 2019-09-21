@@ -7,7 +7,7 @@ FROM golang:1-alpine AS source
 RUN export DEPS=" \
     curl tar musl-dev make libtool" \
     && apk add $DEPS
-ENV GOST_VER=2.7.2
+ENV GOST_VER=2.8.1
 ENV GOST_URL=https://github.com/ginuerzh/gost/archive/v${GOST_VER}.tar.gz
 ENV GOST_DIR=/gost
 

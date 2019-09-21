@@ -6,7 +6,7 @@ FROM alpine:$ALPINE_VER AS source
 RUN export DEPS=" \
     gcc g++ git make libc-dev linux-headers nodejs-npm" \
     && apk add $DEPS
-ENV ZEROTIER_VER=1.4.4
+ENV ZEROTIER_VER=1.4.6
 ENV ZEROTIER_REPO=https://github.com/zerotier/ZeroTierOne.git
 ENV ZEROTIER_DIR=/zerotier
 RUN mkdir $ZEROTIER_DIR
