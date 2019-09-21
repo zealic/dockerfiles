@@ -1,12 +1,12 @@
 coinbox-bitcoin:
   stage: build
   rules:
-    - when: manual
     - if: '$CI_PIPELINE_SOURCE == "web"'
       when: always
     - changes:
         - coinbox/bitcoin/**/*
       when: always
+    - when: manual
   variables:
     IMAGE_DIR: coinbox/bitcoin
   script:
