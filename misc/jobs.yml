@@ -1,8 +1,10 @@
 toolkit:
   stage: build
-  only:
-    changes:
-      - misc/toolkit/**/*
+  rules:
+    - changes:
+        - misc/toolkit/**/*
+      when: always
+    - when: manual
   variables:
     IMAGE_DIR: misc/toolkit
   script:
@@ -10,9 +12,11 @@ toolkit:
 
 toolkit-hashicorp:
   stage: build
-  only:
-    changes:
-      - misc/toolkit/**/*
+  rules:
+    - changes:
+        - misc/toolkit/**/*
+      when: always
+    - when: manual
   variables:
     IMAGE_DIR: misc/toolkit
     IMAGE_TAG: hashicorp

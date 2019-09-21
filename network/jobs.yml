@@ -1,8 +1,10 @@
 network-chinadns:
   stage: build
-  only:
-    changes:
-      - network/chinadns/**/*
+  rules:
+    - changes:
+        - network/chinadns/**/*
+      when: always
+    - when: manual
   variables:
     IMAGE_DIR: network/chinadns
   script:
@@ -10,9 +12,11 @@ network-chinadns:
 
 network-dnsforwarder:
   stage: build
-  only:
-    changes:
-      - network/dnsforwarder/**/*
+  rules:
+    - changes:
+        - network/dnsforwarder/**/*
+      when: always
+    - when: manual
   variables:
     IMAGE_DIR: network/dnsforwarder
   script:
@@ -20,9 +24,11 @@ network-dnsforwarder:
 
 network-frp:
   stage: build
-  only:
-    changes:
-      - network/frp/**/*
+  rules:
+    - changes:
+        - network/frp/**/*
+      when: always
+    - when: manual
   variables:
     IMAGE_DIR: network/frp
   script:
@@ -30,9 +36,11 @@ network-frp:
 
 network-gost:
   stage: build
-  only:
-    changes:
-      - network/gost/**/*
+  rules:
+    - changes:
+        - network/gost/**/*
+      when: always
+    - when: manual
   variables:
     IMAGE_DIR: network/gost
   script:
@@ -40,9 +48,11 @@ network-gost:
 
 network-ocserv:
   stage: build
-  only:
-    changes:
-      - network/ocserv/**/*
+  rules:
+    - changes:
+        - network/ocserv/**/*
+      when: always
+    - when: manual
   variables:
     IMAGE_DIR: network/ocserv
   script:
@@ -50,9 +60,11 @@ network-ocserv:
 
 network-openvpn:
   stage: build
-  only:
-    changes:
-      - network/openvpn/**/*
+  rules:
+    - changes:
+        - network/openvpn/**/*
+      when: always
+    - when: manual
   variables:
     IMAGE_DIR: network/openvpn
   script:
@@ -60,9 +72,11 @@ network-openvpn:
 
 network-shadowsocks:
   stage: build
-  only:
-    changes:
-      - network/shadowsocks/**/*
+  rules:
+    - changes:
+        - network/shadowsocks/**/*
+      when: always
+    - when: manual
   variables:
     IMAGE_DIR: network/shadowsocks
   script:
@@ -70,9 +84,11 @@ network-shadowsocks:
 
 network-shadowvpn:
   stage: build
-  only:
-    changes:
-      - network/shadowvpn/**/*
+  rules:
+    - changes:
+        - network/shadowvpn/**/*
+      when: always
+    - when: manual
   variables:
     IMAGE_DIR: network/shadowvpn
   script:
@@ -80,9 +96,11 @@ network-shadowvpn:
 
 network-whois3:
   stage: build
-  only:
-    changes:
-      - network/whois3/**/*
+  rules:
+    - changes:
+        - network/whois3/**/*
+      when: always
+    - when: manual
   variables:
     IMAGE_DIR: network/whois3
   script:
@@ -90,9 +108,11 @@ network-whois3:
 
 network-zerotier:
   stage: build
-  only:
-    changes:
-      - network/zerotier/**/*
+  rules:
+    - changes:
+        - network/zerotier/**/*
+      when: always
+    - when: manual
   variables:
     IMAGE_DIR: network/zerotier
   script:

@@ -1,8 +1,10 @@
 devel-docker:
   stage: build
-  only:
-    changes:
-      - devel/docker/**/*
+  rules:
+    - changes:
+        - devel/docker/**/*
+      when: always
+    - when: manual
   variables:
     IMAGE_DIR: devel/docker
   script:
@@ -10,9 +12,11 @@ devel-docker:
 
 devel-s3fs:
   stage: build
-  only:
-    changes:
-      - devel/s3fs/**/*
+  rules:
+    - changes:
+        - devel/s3fs/**/*
+      when: always
+    - when: manual
   variables:
     IMAGE_DIR: devel/s3fs
   script:

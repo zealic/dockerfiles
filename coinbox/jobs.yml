@@ -1,8 +1,6 @@
 coinbox-bitcoin:
   stage: build
   rules:
-    - if: '$CI_PIPELINE_SOURCE == "web"'
-      when: always
     - changes:
         - coinbox/bitcoin/**/*
       when: always
@@ -15,8 +13,6 @@ coinbox-bitcoin:
 coinbox-filecoin:
   stage: build
   rules:
-    - if: '$CI_PIPELINE_SOURCE == "web"'
-      when: always
     - changes:
         - coinbox/filecoin/**/*
       when: always
@@ -29,8 +25,6 @@ coinbox-filecoin:
 coinbox-litecoin:
   stage: build
   rules:
-    - if: '$CI_PIPELINE_SOURCE == "web"'
-      when: always
     - changes:
         - coinbox/litecoin/**/*
       when: always
@@ -43,8 +37,6 @@ coinbox-litecoin:
 coinbox-monero:
   stage: build
   rules:
-    - if: '$CI_PIPELINE_SOURCE == "web"'
-      when: always
     - changes:
         - coinbox/monero/**/*
       when: always
