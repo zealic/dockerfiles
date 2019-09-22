@@ -9,7 +9,7 @@ RUN export DEPS=" \
     && apk add $DEPS
 
 ENV OPENVPN_VER=2.4.7
-ENV OPENVPN_URL=https://github.com/OpenVPN/openvpn/archive/v${OPENVPN_VER}.tar.gz
+ENV OPENVPN_URL=https://swupdate.openvpn.org/community/releases/openvpn-${OPENVPN_VER}.tar.gz
 ENV OPENVPN_DIR=/openvpn
 RUN mkdir $OPENVPN_DIR
 WORKDIR $OPENVPN_DIR
