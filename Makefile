@@ -9,6 +9,11 @@ ifeq ($(IMAGE_DIR),)
 $(error "IMAGE_DIR is required.")
 endif
 
+# Gitlab develop
+ifeq ($(CI_COMMIT_REF_NAME),develop)
+REGISTRY_NAME=${CI_REGISTRY_IMAGE}/$(IMAGE_DIR):latest
+endif
+
 
 build:
 	@$(ROOTMAKE) -C $(IMAGE_DIR) build-image
@@ -21,11 +26,13 @@ build-image:
 	fi
 
 push:
-	@if [[ ! "$(CI_COMMIT_REF_NAME)" = "master" ]]; then \
+	@if [[ "$(CI_COMMIT_REF_NAME)" = "master" ]]; then \
+		$(ROOTMAKE) push-dockerhub; \
+	elif [[ "$(CI_COMMIT_REF_NAME)" = "develop" ]]; then \
+		$(ROOTMAKE) push-gitlab; \
+	else \
 		echo "Current branch is $(CI_COMMIT_REF_NAME), push ignored."; \
 		exit 0; \
-	else \
-		$(ROOTMAKE) push-dockerhub; \
 	fi
 
 push-dockerhub:
@@ -33,4 +40,8 @@ push-dockerhub:
 	@if [[ ! -z "$(DOCKER_HUB_USER)" ]]; then \
 		docker login -u $(DOCKER_HUB_USER) -p $(DOCKER_HUB_PASS); \
 	fi
+	docker push $(REGISTRY_NAME)
+
+push-gitlab:
+	@echo Push to gitlab...
 	docker push $(REGISTRY_NAME)
