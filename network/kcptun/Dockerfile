@@ -1,5 +1,8 @@
-# Builder
-FROM zealic/alpine as build-kcptun
+ARG ALPINE_VER=3.9
+################################################################################
+# Source
+################################################################################
+FROM alpine:$ALPINE_VER AS source
 
 RUN export BUILD_DEPS="go gcc git libc-dev" \
     && export RUNTIME_DEPS="ca-certificates" \
@@ -16,12 +19,13 @@ RUN export GOPATH=/tmp/go \
     && mv ./client /usr/local/bin/kcptun-client
 
 
+################################################################################
 # Runtime
-FROM zealic/alpine
-MAINTAINER zealic <zealic@gmail.com>
+################################################################################
+FROM alpine:$ALPINE_VER
 
-COPY --from=build-kcptun /usr/local/bin/kcptun-server /usr/local/bin
-COPY --from=build-kcptun /usr/local/bin/kcptun-client /usr/local/bin
+COPY --from=source /usr/local/bin/kcptun-server /usr/local/bin
+COPY --from=source /usr/local/bin/kcptun-client /usr/local/bin
 
 ENTRYPOINT ["/usr/local/bin/kcptun-server"]
 CMD ["/usr/local/bin/kcptun-server"]

@@ -9,7 +9,7 @@ RUN export DEPS=" \
     libnl3-dev lz4-dev libseccomp-dev xz openssl gcc autoconf make linux-headers" \
     && apk add $DEPS
 
-ENV OCSERV_VER=0.12.3
+ENV OCSERV_VER=0.12.4
 ENV OCSERV_URL=ftp://ftp.infradead.org/pub/ocserv/ocserv-${OCSERV_VER}.tar.xz
 ENV OCSERV_DIR=/ocserv
 RUN mkdir $OCSERV_DIR
