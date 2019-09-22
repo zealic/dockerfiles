@@ -4,7 +4,8 @@ coinbox-bitcoin:
     - changes:
         - coinbox/bitcoin/**/*
       when: always
-    - when: manual
+    - if: '$CI_PIPELINE_SOURCE == "web"'
+      when: manual
   variables:
     IMAGE_DIR: coinbox/bitcoin
   script:
@@ -16,7 +17,8 @@ coinbox-filecoin:
     - changes:
         - coinbox/filecoin/**/*
       when: always
-    - when: manual
+    - if: '$CI_PIPELINE_SOURCE == "web"'
+      when: manual
   variables:
     IMAGE_DIR: coinbox/filecoin
   script:
@@ -28,7 +30,8 @@ coinbox-litecoin:
     - changes:
         - coinbox/litecoin/**/*
       when: always
-    - when: manual
+    - if: '$CI_PIPELINE_SOURCE == "web"'
+      when: manual
   variables:
     IMAGE_DIR: coinbox/litecoin
   script:
@@ -40,7 +43,8 @@ coinbox-monero:
     - changes:
         - coinbox/monero/**/*
       when: always
-    - when: manual
+    - if: '$CI_PIPELINE_SOURCE == "web"'
+      when: manual
   variables:
     IMAGE_DIR: coinbox/monero
   script:
