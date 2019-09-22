@@ -4,6 +4,8 @@ toolkit:
     - changes:
         - misc/toolkit/**/*
       when: always
+    - if: '$CI_PIPELINE_SOURCE != "web"'
+      when: never
     - when: manual
   variables:
     IMAGE_DIR: misc/toolkit
@@ -16,6 +18,8 @@ toolkit-hashicorp:
     - changes:
         - misc/toolkit/**/*
       when: always
+    - if: '$CI_PIPELINE_SOURCE != "web"'
+      when: never
     - when: manual
   variables:
     IMAGE_DIR: misc/toolkit

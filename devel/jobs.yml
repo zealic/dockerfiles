@@ -4,6 +4,8 @@ devel-docker:
     - changes:
         - devel/docker/**/*
       when: always
+    - if: '$CI_PIPELINE_SOURCE != "web"'
+      when: never
     - when: manual
   variables:
     IMAGE_DIR: devel/docker
@@ -16,6 +18,8 @@ devel-s3fs:
     - changes:
         - devel/s3fs/**/*
       when: always
+    - if: '$CI_PIPELINE_SOURCE != "web"'
+      when: never
     - when: manual
   variables:
     IMAGE_DIR: devel/s3fs

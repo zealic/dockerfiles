@@ -4,6 +4,8 @@ network-chinadns:
     - changes:
         - network/chinadns/**/*
       when: always
+    - if: '$CI_PIPELINE_SOURCE != "web"'
+      when: never
     - when: manual
   variables:
     IMAGE_DIR: network/chinadns
@@ -16,6 +18,8 @@ network-dnsforwarder:
     - changes:
         - network/dnsforwarder/**/*
       when: always
+    - if: '$CI_PIPELINE_SOURCE != "web"'
+      when: never
     - when: manual
   variables:
     IMAGE_DIR: network/dnsforwarder
@@ -28,6 +32,8 @@ network-frp:
     - changes:
         - network/frp/**/*
       when: always
+    - if: '$CI_PIPELINE_SOURCE != "web"'
+      when: never
     - when: manual
   variables:
     IMAGE_DIR: network/frp
@@ -40,6 +46,8 @@ network-gost:
     - changes:
         - network/gost/**/*
       when: always
+    - if: '$CI_PIPELINE_SOURCE != "web"'
+      when: never
     - when: manual
   variables:
     IMAGE_DIR: network/gost
@@ -52,6 +60,8 @@ network-ocserv:
     - changes:
         - network/ocserv/**/*
       when: always
+    - if: '$CI_PIPELINE_SOURCE != "web"'
+      when: never
     - when: manual
   variables:
     IMAGE_DIR: network/ocserv
@@ -64,6 +74,8 @@ network-openvpn:
     - changes:
         - network/openvpn/**/*
       when: always
+    - if: '$CI_PIPELINE_SOURCE != "web"'
+      when: never
     - when: manual
   variables:
     IMAGE_DIR: network/openvpn
@@ -76,6 +88,8 @@ network-shadowsocks:
     - changes:
         - network/shadowsocks/**/*
       when: always
+    - if: '$CI_PIPELINE_SOURCE != "web"'
+      when: never
     - when: manual
   variables:
     IMAGE_DIR: network/shadowsocks
@@ -88,6 +102,8 @@ network-shadowvpn:
     - changes:
         - network/shadowvpn/**/*
       when: always
+    - if: '$CI_PIPELINE_SOURCE != "web"'
+      when: never
     - when: manual
   variables:
     IMAGE_DIR: network/shadowvpn
@@ -100,6 +116,8 @@ network-whois3:
     - changes:
         - network/whois3/**/*
       when: always
+    - if: '$CI_PIPELINE_SOURCE != "web"'
+      when: never
     - when: manual
   variables:
     IMAGE_DIR: network/whois3
@@ -112,6 +130,8 @@ network-zerotier:
     - changes:
         - network/zerotier/**/*
       when: always
+    - if: '$CI_PIPELINE_SOURCE != "web"'
+      when: never
     - when: manual
   variables:
     IMAGE_DIR: network/zerotier
