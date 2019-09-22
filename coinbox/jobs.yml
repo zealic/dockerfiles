@@ -6,6 +6,7 @@ coinbox-bitcoin:
       when: always
     - if: '$CI_PIPELINE_SOURCE == "web"'
       when: manual
+    - when: never
   variables:
     IMAGE_DIR: coinbox/bitcoin
   script:
@@ -19,6 +20,7 @@ coinbox-filecoin:
       when: always
     - if: '$CI_PIPELINE_SOURCE == "web"'
       when: manual
+    - when: never
   variables:
     IMAGE_DIR: coinbox/filecoin
   script:
@@ -32,6 +34,7 @@ coinbox-litecoin:
       when: always
     - if: '$CI_PIPELINE_SOURCE == "web"'
       when: manual
+    - when: never
   variables:
     IMAGE_DIR: coinbox/litecoin
   script:
@@ -45,6 +48,7 @@ coinbox-monero:
       when: always
     - if: '$CI_PIPELINE_SOURCE == "web"'
       when: manual
+    - when: never
   variables:
     IMAGE_DIR: coinbox/monero
   script:
