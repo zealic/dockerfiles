@@ -1,15 +1,31 @@
-# Alpine network performance better than Debian jessie
 ARG ALPINE_VER=3.9
-FROM alpine:${ALPINE_VER}
+################################################################################
+# Source
+################################################################################
+FROM alpine:$ALPINE_VER AS source
+RUN export DEPS=" \
+    gcc autoconf make linux-headers \
+    musl-dev openssl-dev lz4-dev lzo-dev linux-pam-dev" \
+    && apk add $DEPS
 
-RUN apk add openvpn iptables bash easy-rsa tcpdump mtr \
-  && ln -s /usr/share/easy-rsa/easyrsa /usr/local/bin \
-  && rm -rf /tmp/* /var/tmp/* /var/cache/apk/*
+ENV OPENVPN_VER=2.4.7
+ENV OPENVPN_URL=https://github.com/OpenVPN/openvpn/archive/v${OPENVPN_VER}.tar.gz
+ENV OPENVPN_DIR=/openvpn
+RUN mkdir $OPENVPN_DIR
+WORKDIR $OPENVPN_DIR
+RUN wget -qO- ${OPENVPN_URL} | tar --strip-components=1 -C $OPENVPN_DIR -xvzf -
+RUN ./configure && make && make install
 
-ADD ./bin/* /usr/local/bin/
 
+################################################################################
+# Runtime
+################################################################################
+FROM alpine:$ALPINE_VER
+RUN export DEPS="iptables bash easy-rsa lz4 lzo linux-pam" \
+    && apk add $DEPS
+COPY --from=source /usr/local/* /usr/local/
+COPY entrypoint.sh /entrypoint.sh
+
+ENTRYPOINT ["/entrypoint.sh"]
 ENV OPENVPN /etc/openvpn
-
 EXPOSE 1194/udp
-
-ENTRYPOINT ["/usr/local/bin/run-vpn"]
