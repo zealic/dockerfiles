@@ -21,9 +21,9 @@ RUN ./configure && make && make install
 # Runtime
 ################################################################################
 FROM alpine:$ALPINE_VER
-RUN export DEPS="iptables bash easy-rsa lz4 lzo linux-pam" \
+RUN export DEPS="iptables bash easy-rsa openssl lz4-libs lzo linux-pam" \
     && apk add $DEPS
-COPY --from=source /usr/local/* /usr/local/
+COPY --from=source /usr/local/ /usr/local/
 COPY entrypoint.sh /entrypoint.sh
 
 ENTRYPOINT ["/entrypoint.sh"]
