@@ -1,6 +1,6 @@
-ARG DOCKER_VER=18.09
-ARG COMPOSE_VER=1.23.2
-ARG ALPINE_VER=3.9
+ARG DOCKER_VER=19.03
+ARG COMPOSE_VER=1.24.1
+ARG ALPINE_VER=3.10
 
 ################################################################################
 # Source - Docker
