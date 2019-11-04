@@ -110,6 +110,20 @@ network-shadowvpn:
   script:
     - make
 
+network-tinc:
+  stage: build
+  rules:
+    - changes:
+        - network/tinc/**/*
+      when: always
+    - if: '$CI_PIPELINE_SOURCE != "web"'
+      when: never
+    - when: manual
+  variables:
+    IMAGE_DIR: network/tinc
+  script:
+    - make
+
 network-whois3:
   stage: build
   rules:
