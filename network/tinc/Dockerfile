@@ -11,7 +11,7 @@ RUN export DEPS=" \
     && apk add $DEPS
 
 ENV TINC_VER=1.1pre17
-ENV TINC_URL=https://fossies.org/linux/privat/tinc-${TINC_VER}.tar.gz
+ENV TINC_URL=https://www.tinc-vpn.org/packages/tinc-${TINC_VER}.tar.gz
 ENV TINC_DIR=/tinc
 RUN mkdir $TINC_DIR
 WORKDIR $TINC_DIR
