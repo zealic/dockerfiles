@@ -16,7 +16,7 @@ ENV TINC_DIR=/tinc
 RUN mkdir $TINC_DIR
 WORKDIR $TINC_DIR
 RUN curl -sSL ${TINC_URL} | tar --strip-components=1 -C $TINC_DIR -xvzf -
-RUN ./configure --prefix=/usr \
+RUN ./configure --prefix=/usr/local \
             --sysconfdir=/etc \
             --mandir=/usr/share/man \
             --infodir=/usr/share/info \
@@ -34,7 +34,7 @@ FROM alpine:$ALPINE_VER
 RUN export DEPS="iptables ncurses readline lzo zlib" \
     && apk add $DEPS
 ADD ./entrypoint.sh /
-COPY --from=source /usr/sbin/tincd /usr/local/bin/
+COPY --from=source /usr/local/sbin/* /usr/local/bin/
 
 EXPOSE 655/tcp 655/udp
 VOLUME /etc/tinc
