@@ -23,7 +23,7 @@ COPY --from=source-docker /usr/local/bin/docker-entrypoint.sh /usr/local/bin/
 FROM alpine:${ALPINE_VER}
 COPY --from=source /usr/local/bin/* /usr/local/bin/
 
-RUN export DEPS="ca-certificates bash make curl" \
+RUN export DEPS="ca-certificates bash coreutils make curl" \
     && apk add $DEPS
 
 ENTRYPOINT ["docker-entrypoint.sh"]
