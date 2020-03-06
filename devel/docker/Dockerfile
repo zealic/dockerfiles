@@ -1,6 +1,6 @@
 ARG DOCKER_VER=19.03
-ARG COMPOSE_VER=1.24.1
-ARG ALPINE_VER=3.10
+ARG COMPOSE_VER=1.25.4
+ARG ALPINE_VER=3.11
 
 ################################################################################
 # Source - Docker
@@ -20,7 +20,7 @@ COPY --from=source-docker /usr/local/bin/docker-entrypoint.sh /usr/local/bin/
 ################################################################################
 # Runtime
 ################################################################################
-FROM frolvlad/alpine-glibc:alpine-${ALPINE_VER}
+FROM alpine:${ALPINE_VER}
 COPY --from=source /usr/local/bin/* /usr/local/bin/
 
 RUN DEPS="bash make curl" \
@@ -28,3 +28,4 @@ RUN DEPS="bash make curl" \
 
 ENTRYPOINT ["docker-entrypoint.sh"]
 CMD ["sh"]
+
