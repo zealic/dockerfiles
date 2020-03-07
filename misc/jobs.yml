@@ -2,7 +2,7 @@ toolkit:
   stage: build
   rules:
     - changes:
-        - misc/toolkit/**/*
+        - misc/toolkit/Dockerfile
       when: always
     - if: '$CI_PIPELINE_SOURCE != "web"'
       when: never
@@ -16,7 +16,7 @@ toolkit-hashicorp:
   stage: build
   rules:
     - changes:
-        - misc/toolkit/**/*
+        - misc/toolkit/Dockerfile.hashicorp
       when: always
     - if: '$CI_PIPELINE_SOURCE != "web"'
       when: never

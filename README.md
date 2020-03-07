@@ -46,7 +46,6 @@ Toolkit include utility tools for your docker.
   * gosu
   * tini
   * dumb-init
-  * containerpilot
   * envoy
   * awless
 
