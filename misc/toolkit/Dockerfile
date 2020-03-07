@@ -1,11 +1,11 @@
-ARG ALPINE_VER=3.9
+ARG ALPINE_VER=3.11
 ARG SOURCE_IMAGE=alpine:${ALPINE_VER}
 
 ################################################################################
 # Source - busybox
 ################################################################################
 FROM $SOURCE_IMAGE AS source-busybox
-ENV BUSYBOX_VER=1.30.0
+ENV BUSYBOX_VER=1.31.1
 ENV BUSYBOX_URL=https://busybox.net/downloads/binaries/${BUSYBOX_VER}-i686/busybox
 RUN wget -qO /usr/local/bin/busybox $BUSYBOX_URL
 RUN chmod +x /usr/local/bin/busybox
@@ -25,7 +25,7 @@ RUN chmod +x /usr/local/bin/confd
 # Source - gomplate
 ################################################################################
 FROM $SOURCE_IMAGE AS source-gomplate
-ENV GOMPLATE_VER=3.1.0
+ENV GOMPLATE_VER=3.6.0
 ENV GOMPLATE_URL=https://github.com/hairyhenderson/gomplate/releases/download/v$GOMPLATE_VER/gomplate_linux-amd64
 RUN wget -qO /usr/local/bin/gomplate $GOMPLATE_URL
 RUN chmod +x /usr/local/bin/gomplate
@@ -45,7 +45,7 @@ RUN chmod +x /usr/local/bin/jq
 # Source - lego
 ################################################################################
 FROM $SOURCE_IMAGE AS source-lego
-ENV LEGO_VER=2.1.0
+ENV LEGO_VER=3.4.0
 ENV LEGO_URL=https://github.com/xenolf/lego/releases/download/v$LEGO_VER/lego_v${LEGO_VER}_linux_amd64.tar.gz
 RUN wget -qO- $LEGO_URL | tar -C /tmp -xvzf -
 RUN mv /tmp/lego /usr/local/bin/lego
@@ -55,7 +55,7 @@ RUN mv /tmp/lego /usr/local/bin/lego
 # Source - migrate
 ################################################################################
 FROM $SOURCE_IMAGE AS source-migrate
-ENV MIGRATE_VER=4.2.3
+ENV MIGRATE_VER=4.9.1
 ENV MIGRATE_URL=https://github.com/golang-migrate/migrate/releases/download/v$MIGRATE_VER/migrate.linux-amd64.tar.gz
 RUN wget -qO- $MIGRATE_URL | tar -C /tmp -xvzf -
 RUN mv /tmp/migrate.linux-amd64 /usr/local/bin/migrate
@@ -65,7 +65,7 @@ RUN mv /tmp/migrate.linux-amd64 /usr/local/bin/migrate
 # Source - yq
 ################################################################################
 FROM $SOURCE_IMAGE AS source-yq
-ENV YQ_VER=2.2.1
+ENV YQ_VER=3.2.1
 ENV YQ_URL=https://github.com/mikefarah/yq/releases/download/$YQ_VER/yq_linux_amd64
 RUN wget -qO /usr/local/bin/yq $YQ_URL
 RUN chmod +x /usr/local/bin/yq
@@ -102,19 +102,9 @@ RUN chmod +x /usr/local/bin/dumb-init
 
 
 ################################################################################
-# Source - containerpilot
-################################################################################
-FROM $SOURCE_IMAGE AS source-containerpilot
-ENV CONTAINERPILOT_VER=3.8.0
-ENV CONTAINERPILOT_URL=https://github.com/joyent/containerpilot/releases/download/${CONTAINERPILOT_VER}/containerpilot-${CONTAINERPILOT_VER}.tar.gz
-RUN wget -qO- $CONTAINERPILOT_URL | tar -C /tmp -xvzf -
-RUN mv /tmp/containerpilot /usr/local/bin/containerpilot
-
-
-################################################################################
 # Source - envoy
 ################################################################################
-FROM envoyproxy/envoy:v1.9.0 AS source-envoy
+FROM envoyproxy/envoy-alpine:v1.13.1 AS source-envoy
 # Envoy already in /usr/local/bin
 
 
@@ -142,7 +132,6 @@ COPY --from=source-yq             /usr/local/bin/*  /usr/local/bin/
 COPY --from=source-gosu           /usr/local/bin/*  /usr/local/bin/
 COPY --from=source-tini           /usr/local/bin/*  /usr/local/bin/
 COPY --from=source-dumb-init      /usr/local/bin/*  /usr/local/bin/
-COPY --from=source-containerpilot /usr/local/bin/*  /usr/local/bin/
 COPY --from=source-envoy          /usr/local/bin/*  /usr/local/bin/
 COPY --from=source-awless         /usr/local/bin/*  /usr/local/bin/
 
