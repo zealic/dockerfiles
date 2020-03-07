@@ -5,7 +5,7 @@ ARG SOURCE_IMAGE=alpine:${ALPINE_VER}
 # Source - busybox
 ################################################################################
 FROM $SOURCE_IMAGE AS source-busybox
-ENV BUSYBOX_VER=1.31.1
+ENV BUSYBOX_VER=1.30.0
 ENV BUSYBOX_URL=https://busybox.net/downloads/binaries/${BUSYBOX_VER}-i686/busybox
 RUN wget -qO /usr/local/bin/busybox $BUSYBOX_URL
 RUN chmod +x /usr/local/bin/busybox
