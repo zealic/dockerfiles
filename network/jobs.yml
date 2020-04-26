@@ -124,6 +124,20 @@ network-tinc:
   script:
     - make
 
+network-udp2raw:
+  stage: build
+  rules:
+    - changes:
+        - network/udp2raw/**/*
+      when: always
+    - if: '$CI_PIPELINE_SOURCE != "web"'
+      when: never
+    - when: manual
+  variables:
+    IMAGE_DIR: network/udp2raw
+  script:
+    - make
+
 network-whois3:
   stage: build
   rules:

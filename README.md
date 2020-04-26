@@ -27,6 +27,7 @@ Dockerfiles for images I've pushed to https://hub.docker.com/u/zealic
 * [openvpn](https://hub.docker.com/r/zealic/openvpn)
 * [shadowsocks](https://hub.docker.com/r/zealic/shadowsocks)
 * [shadowvpn](https://hub.docker.com/r/zealic/shadowvpn)
+* [udp2raw](https://hub.docker.com/r/zealic/udp2raw)
 * [whois3](https://hub.docker.com/r/zealic/whois3)
 * [zerotier](https://hub.docker.com/r/zealic/zerotier)
 
