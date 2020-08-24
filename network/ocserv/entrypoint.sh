@@ -85,6 +85,8 @@ uri ${LDAP_SERVER}
 base ${LDAP_BASEDN}
 binddn ${LDAP_BINDDN}
 bindpw ${LDAP_BINDPW}
+pam_groupdn ${LDAP_GROUPDN}
+pam_member_attribute ${LDAP_MEMBER_ATTRIBUTE:-member}
 EOF
 fi
 
