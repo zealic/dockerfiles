@@ -2,7 +2,8 @@ ROOTMAKE=$(MAKE) -f $(abspath $(lastword $(MAKEFILE_LIST)))
 IMAGE_NAME?=$(shell basename $(IMAGE_DIR))
 IMAGE_TAG?=latest
 IMAGE_FILE?=Dockerfile
-IMAGE_NAMESPACE?=$(or $(CI_PROJECT_NAMESPACE),zealic)
+# Namespace from Gitlab or Github
+IMAGE_NAMESPACE?=$(or $(or $(CI_PROJECT_NAMESPACE),$(GITHUB_ACTOR)),zealic)
 REGISTRY_NAME?=$(IMAGE_NAMESPACE)/$(IMAGE_NAME):$(IMAGE_TAG)
 
 ifeq ($(IMAGE_DIR),)

@@ -1,4 +1,5 @@
-ARG ALPINE_VER=3.9
+ARG ALPINE_VER=3.12
+ARG DEBIAN_VER=9-slim
 ################################################################################
 # Source
 ################################################################################
@@ -8,7 +9,7 @@ ENV BASE_DIR /bitcoin
 
 RUN apk add --no-cache curl
 
-ENV BITCOIN_VER=0.19.1
+ENV BITCOIN_VER=0.20.1
 ENV BITCOIN_URL=https://bitcoin.org/bin/bitcoin-core-${BITCOIN_VER}/bitcoin-${BITCOIN_VER}-x86_64-linux-gnu.tar.gz
 RUN mkdir ${BASE_DIR}
 RUN curl -sSL ${BITCOIN_URL} \
@@ -42,7 +43,7 @@ RUN make
 ################################################################################
 # Runtime
 ################################################################################
-FROM debian:stretch-slim
+FROM debian:${DEBIAN_VER}
 
 COPY --from=source-bx        /bitcoin/bin    /usr/local/bin
 COPY --from=source-vanitygen /vanitygen-plus/vanitygen /usr/local/bin
