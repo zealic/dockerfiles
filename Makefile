@@ -37,8 +37,9 @@ push:
 	fi
 
 push-dockerhub:
-	@echo Push to Dockerhub...
+	@echo Push to Docker Hub...
 	@if [[ ! -z "$(DOCKER_HUB_USER)" ]]; then \
+		echo "Loginning docker hub..."; \
 		docker login -u $(DOCKER_HUB_USER) -p $(DOCKER_HUB_PASS); \
 	fi
 	docker push $(REGISTRY_NAME)

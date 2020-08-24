@@ -1,4 +1,5 @@
-ARG ALPINE_VER=3.9
+ARG ALPINE_VER=3.12
+ARG DEBIAN_VER=9-slim
 ################################################################################
 # Source
 ################################################################################
@@ -8,7 +9,7 @@ ENV BASE_DIR /litecoin
 
 RUN apk add --update curl
 
-ENV LITECOIN_VER=0.17.1
+ENV LITECOIN_VER=0.18.1
 ENV LITECOIN_URL=https://download.litecoin.org/litecoin-${LITECOIN_VER}/linux/litecoin-${LITECOIN_VER}-x86_64-linux-gnu.tar.gz
 RUN mkdir ${BASE_DIR}
 RUN curl -sSL ${LITECOIN_URL} \
@@ -18,7 +19,7 @@ RUN curl -sSL ${LITECOIN_URL} \
 ################################################################################
 # Runtime
 ################################################################################
-FROM debian:stretch-slim
+FROM debian:${DEBIAN_VER}
 
 COPY --from=source /litecoin/bin /usr/local/bin
 
