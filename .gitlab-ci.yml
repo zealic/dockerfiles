@@ -1,7 +1,3 @@
-workflow:
-  rules:
-    - if: '$CI_PIPELINE_SOURCE == "push"'
-
 include:
   - remote: https://arp.to/@ci/docker.yml
   - local: coinbox/jobs.yml

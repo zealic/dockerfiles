@@ -38,6 +38,7 @@ push:
 
 push-dockerhub:
 	@echo Push to Docker Hub...
+	env
 	@if [[ ! -z "$(DOCKER_HUB_USER)" ]]; then \
 		echo "Loginning docker hub..."; \
 		docker login -u $(DOCKER_HUB_USER) -p $(DOCKER_HUB_PASS); \
