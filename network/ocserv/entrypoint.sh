@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 if [ ! -f /etc/ocserv/server-key.pem ] || [ ! -f /etc/ocserv/server-cert.pem ]; then
 	# Check environment variables
 	if [ -z "$CA_CN" ]; then
@@ -57,20 +57,15 @@ if [ ! -f /etc/ocserv/server-key.pem ] || [ ! -f /etc/ocserv/server-cert.pem ]; 
 	fi
 fi
 
-# Open ipv4 ip forward
-sysctl -w net.ipv4.ip_forward=1
-
-# Enable NAT forwarding
-iptables -t nat -A POSTROUTING -j MASQUERADE
-iptables -A FORWARD -p tcp --tcp-flags SYN,RST SYN -j TCPMSS --clamp-mss-to-pmtu
-
 # Enable TUN device
-mkdir -p /dev/net
-mknod /dev/net/tun c 10 200
-chmod 600 /dev/net/tun
+if [[ ! -e /dev/net/tun ]]; then
+  mkdir -p /dev/net
+  mknod /dev/net/tun c 10 200
+  chmod 600 /dev/net/tun
+fi
 
 # Setup config
-if [ ! -f /etc/ocserv/ocserv.conf ]; then
+if [[ ! -f /etc/ocserv/ocserv.conf ]]; then
   cp /etc/ocserv/simple.config /etc/ocserv/ocserv.conf
   sed -i 's/\.\/sample\.passwd/\/etc\/ocserv\/ocpasswd/' /etc/ocserv/ocserv.conf
   sed -i 's/\(max-same-clients = \)2/\110/' /etc/ocserv/ocserv.conf
@@ -81,6 +76,25 @@ if [ ! -f /etc/ocserv/ocserv.conf ]; then
   sed -i 's/^route/#route/' /etc/ocserv/ocserv.conf
   sed -i 's/^no-route/#no-route/' /etc/ocserv/ocserv.conf
 fi
+
+# LDAP config
+if [[ ! -z "${LDAP_SERVER}" ]]; then
+  cat > /etc/pam_ldap.conf <<EOF
+ldap_version 3
+uri ${LDAP_SERVER}
+base ${LDAP_BASEDN}
+binddn ${LDAP_BINDDN}
+bindpw ${LDAP_BINDPW}
+EOF
+fi
+
+# Open ipv4 ip forward
+sysctl -w net.ipv4.ip_forward=1
+
+# Enable NAT forwarding
+echo "1" | update-alternatives --config iptables
+iptables -t nat -A POSTROUTING -j MASQUERADE
+iptables -A FORWARD -p tcp --tcp-flags SYN,RST SYN -j TCPMSS --clamp-mss-to-pmtu
 
 # Run OpennConnect Server
 exec "$@"
