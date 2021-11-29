@@ -85,17 +85,30 @@ uri ${LDAP_SERVER}
 base ${LDAP_BASEDN}
 binddn ${LDAP_BINDDN}
 bindpw ${LDAP_BINDPW}
-pam_groupdn ${LDAP_GROUPDN}
-pam_member_attribute ${LDAP_MEMBER_ATTRIBUTE:-member}
 EOF
+  if [[ ! -z "${LDAP_GROUPDN}" ]]; then
+    echo "pam_groupdn ${LDAP_GROUPDN}" >> /etc/pam_ldap.conf
+    echo "pam_member_attribute ${LDAP_MEMBER_ATTRIBUTE:-member}" >> /etc/pam_ldap.conf
+  fi
   if [[ ! -z "${LDAPTLS_CACERTDIR}" ]]; then
     echo "tls_cacertdir ${LDAPTLS_CACERTDIR}" >> /etc/pam_ldap.conf
   elif [[ ! -z "${LDAPTLS_CACERT}" ]]; then
     echo "tls_cacertfile ${LDAPTLS_CACERT}" >> /etc/pam_ldap.conf
   fi
-or
+  
+  if [[ ! -z "RFC2307" ]]; then
+    cat >> /etc/pam_ldap.conf <<EOF
+pam_login_attribute ${LDAP_LOGIN_ATTRIBUTE:-sAMAccountName}
+pam_filter objectclass=User
+pam_password ad
+EOF
+  fi
 
-tls_cacertfile /etc/pki/tls/CA/cacert.pem
+  if [[ ! -d /etc/pam_ldap.d ]]; then
+    for conf in /etc/pam_ldap.d/*.conf; do
+      cat $conf >> /etc/pam_ldap.conf
+    done
+  fi
 fi
 
 # Open ipv4 ip forward
