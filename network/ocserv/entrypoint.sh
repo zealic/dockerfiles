@@ -88,6 +88,14 @@ bindpw ${LDAP_BINDPW}
 pam_groupdn ${LDAP_GROUPDN}
 pam_member_attribute ${LDAP_MEMBER_ATTRIBUTE:-member}
 EOF
+  if [[ ! -z "${LDAPTLS_CACERTDIR}" ]]; then
+    echo "tls_cacertdir ${LDAPTLS_CACERTDIR}" >> /etc/pam_ldap.conf
+  elif [[ ! -z "${LDAPTLS_CACERT}" ]]; then
+    echo "tls_cacertfile ${LDAPTLS_CACERT}" >> /etc/pam_ldap.conf
+  fi
+or
+
+tls_cacertfile /etc/pki/tls/CA/cacert.pem
 fi
 
 # Open ipv4 ip forward
