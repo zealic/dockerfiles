@@ -14,6 +14,10 @@ configure_ldap(){
 }
 
 configure_server(){
+  configure_ldap
+  if [[ -f /config/.firstrun ]]; then
+    return
+  fi
   wait_server
   APIKEY=`$CLI config gui apikey get`
   curl -k -XPATCH -H "X-API-KEY: $APIKEY" https://127.0.0.1:8384/rest/config/options -d '{"unackedNotificationIDs": []}'
@@ -32,11 +36,7 @@ configure_server(){
   $CLI config gui raw-use-tls set true
   wait_server
   $CLI errors clear
+  touch /config/.firstrun
 }
 
-configure_ldap &
-if [[ -f /config/.firstrun ]]; then
-  return
-fi
 configure_server &
-touch /config/.firstrun
