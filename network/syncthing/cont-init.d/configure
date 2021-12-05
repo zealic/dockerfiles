@@ -1,0 +1,42 @@
+#!/usr/bin/with-contenv bash
+CLI="syncthing cli --home /config"
+
+wait_server(){
+  while ! curl -k https://127.0.0.1:8384 > /dev/null 2>&1; do
+   sleep 1
+  done
+}
+
+configure_ldap(){
+  wait_server
+  $CLI config ldap address set "${LDAP_ADDRESS}"
+  $CLI config ldap bind-dn set "${LDAP_BINDDN}"
+}
+
+configure_server(){
+  wait_server
+  APIKEY=`$CLI config gui apikey get`
+  curl -k -XPATCH -H "X-API-KEY: $APIKEY" https://127.0.0.1:8384/rest/config/options -d '{"unackedNotificationIDs": []}'
+  curl -k -XPATCH -H "X-API-KEY: $APIKEY" https://127.0.0.1:8384/rest/config/options -d '{"urAccepted": -1}'
+  $CLI config folders default delete
+  $CLI config options natenabled set false
+  $CLI config options relays-enabled set false
+  $CLI config options global-ann-enabled set false
+  $CLI config options crenabled set false
+  $CLI config options urseen set 3
+  $CLI config ldap transport set tls
+  $CLI config ldap insecure-skip-verify set true
+
+  $CLI config gui auth-mode set ldap
+  wait_server
+  $CLI config gui raw-use-tls set true
+  wait_server
+  $CLI errors clear
+}
+
+configure_ldap &
+if [[ -f /config/.firstrun ]]; then
+  return
+fi
+configure_server &
+touch /config/.firstrun

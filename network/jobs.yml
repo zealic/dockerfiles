@@ -110,6 +110,20 @@ network-shadowvpn:
   script:
     - make
 
+network-syncthing:
+  stage: build
+  rules:
+    - changes:
+        - network/syncthing/**/*
+      when: always
+    - if: '$CI_PIPELINE_SOURCE != "web"'
+      when: never
+    - when: manual
+  variables:
+    IMAGE_DIR: network/syncthing
+  script:
+    - make
+
 network-tinc:
   stage: build
   rules:
