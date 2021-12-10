@@ -11,6 +11,7 @@ configure_ldap(){
   wait_server
   $CLI config ldap address set "${LDAP_ADDRESS}"
   $CLI config ldap bind-dn set "${LDAP_BINDDN}"
+  $CLI config ldap search-base-dn set "${LDAP_BASEDN}"
 }
 
 configure_server(){
