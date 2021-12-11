@@ -94,8 +94,10 @@ EOF
     echo "tls_cacertdir ${LDAPTLS_CACERTDIR}" >> /etc/pam_ldap.conf
   elif [[ ! -z "${LDAPTLS_CACERT}" ]]; then
     echo "tls_cacertfile ${LDAPTLS_CACERT}" >> /etc/pam_ldap.conf
+  elif [[ ! -z "LDAPTLS_CHECKPEER" ]]; then
+    echo "tls_checkpeer ${LDAPTLS_CHECKPEER}" >> /etc/pam_ldap.conf
   fi
-  
+
   if [[ ! -z "RFC2307" ]]; then
     cat >> /etc/pam_ldap.conf <<EOF
 pam_login_attribute ${LDAP_LOGIN_ATTRIBUTE:-sAMAccountName}
