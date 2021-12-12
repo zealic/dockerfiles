@@ -10,7 +10,7 @@ RUN export BUILD_DEPS=" \
     libpam-dev libnl-route-3-dev libwrap0-dev libkrb5-dev libradcli-dev libhttp-parser-dev liblz4-dev" \
   && apt-get update && apt-get install -y $BUILD_DEPS --no-install-recommends && rm -rf /var/lib/apt/lists/*
 
-ENV OCSERV_VER=1.1.0
+ENV OCSERV_VER=1.1.5
 ENV OCSERV_URL=ftp://ftp.infradead.org/pub/ocserv/ocserv-${OCSERV_VER}.tar.xz
 ENV OCSERV_DIR=/ocserv
 RUN mkdir $OCSERV_DIR
