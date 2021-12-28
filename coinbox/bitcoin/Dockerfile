@@ -24,7 +24,7 @@ RUN curl -sSL -o ${BASE_DIR}/bin/bx ${BX_URL} \
 ################################################################################
 # Source
 ################################################################################
-FROM buildpack-deps:bulleyes AS source-vanitygen
+FROM buildpack-deps:bullseye AS source-vanitygen
 RUN apt-get update && apt-get install -y libssl1.0-dev
 ENV VANITYGEN_PLUS_VER=1.53
 ENV VANITYGEN_PLUS_VER_PREFIX=PLUS
