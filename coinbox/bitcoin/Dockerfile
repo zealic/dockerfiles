@@ -48,7 +48,7 @@ FROM debian:${DEBIAN_VER}
 COPY --from=source-bx        /bitcoin/bin    /usr/local/bin
 COPY --from=source-vanitygen /vanitygen-plus/vanitygen /usr/local/bin
 
-RUN apt-get update && apt-get install -y libssl1.0 \
+RUN apt-get update && apt-get install -y libssl \
   && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 VOLUME ["/var/lib/bitcoin"]
