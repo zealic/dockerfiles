@@ -1,5 +1,5 @@
-ARG ALPINE_VER=3.12
-ARG DEBIAN_VER=9-slim
+ARG ALPINE_VER=3.15
+ARG DEBIAN_VER=11-slim
 ################################################################################
 # Source
 ################################################################################
@@ -9,8 +9,8 @@ ENV BASE_DIR /bitcoin
 
 RUN apk add --no-cache curl
 
-ENV BITCOIN_VER=0.20.1
-ENV BITCOIN_URL=https://bitcoin.org/bin/bitcoin-core-${BITCOIN_VER}/bitcoin-${BITCOIN_VER}-x86_64-linux-gnu.tar.gz
+ENV BITCOIN_VER=22.0
+ENV BITCOIN_URL=https://bitcoincore.org/bin/bitcoin-core-${BITCOIN_VER}/bitcoin-${BITCOIN_VER}-aarch64-linux-gnu.tar.gz
 RUN mkdir ${BASE_DIR}
 RUN curl -sSL ${BITCOIN_URL} \
         | tar --strip-components=1 -xzf - -C ${BASE_DIR}
@@ -24,7 +24,7 @@ RUN curl -sSL -o ${BASE_DIR}/bin/bx ${BX_URL} \
 ################################################################################
 # Source
 ################################################################################
-FROM buildpack-deps:stretch AS source-vanitygen
+FROM buildpack-deps:bulleyes AS source-vanitygen
 RUN apt-get update && apt-get install -y libssl1.0-dev
 ENV VANITYGEN_PLUS_VER=1.53
 ENV VANITYGEN_PLUS_VER_PREFIX=PLUS
