@@ -10,7 +10,7 @@ ENV BASE_DIR /bitcoin
 RUN apk add --no-cache curl
 
 ENV BITCOIN_VER=22.0
-ENV BITCOIN_URL=https://bitcoincore.org/bin/bitcoin-core-${BITCOIN_VER}/bitcoin-${BITCOIN_VER}-aarch64-linux-gnu.tar.gz
+ENV BITCOIN_URL=https://bitcoincore.org/bin/bitcoin-core-${BITCOIN_VER}/bitcoin-${BITCOIN_VER}-x86_64-linux-gnu.tar.gz
 RUN mkdir ${BASE_DIR}
 RUN curl -sSL ${BITCOIN_URL} \
         | tar --strip-components=1 -xzf - -C ${BASE_DIR}
@@ -26,18 +26,18 @@ RUN curl -sSL -o ${BASE_DIR}/bin/bx ${BX_URL} \
 ################################################################################
 FROM buildpack-deps:bullseye AS source-vanitygen
 RUN apt-get update && apt-get install -y libssl-dev
-ENV VANITYGEN_PLUS_VER=1.53
-ENV VANITYGEN_PLUS_VER_PREFIX=PLUS
-ENV VANITYGEN_PLUS_REPO=https://github.com/exploitagency/vanitygen-plus.git
-ENV VANITYGEN_PLUS_DIR=/vanitygen-plus
-RUN mkdir $VANITYGEN_PLUS_DIR
-WORKDIR $VANITYGEN_PLUS_DIR
+ENV VANITYGEN_VER=0.1.0
+ENV VANITYGEN_REPO=https://github.com/10gic/vanitygen-plusplus.git
+ENV VANITYGEN_DIR=/vanitygen-plusplus
+RUN mkdir $VANITYGEN_DIR
+WORKDIR $VANITYGEN_DIR
 RUN git init \
-  && git remote add origin $VANITYGEN_PLUS_REPO \
-  && git fetch --depth 1 origin $VANITYGEN_PLUS_VER_PREFIX$VANITYGEN_PLUS_VER \
+  && git remote add origin $VANITYGEN_REPO \
+  && git fetch --depth 1 origin v$VANITYGEN_VER \
   && git reset --hard FETCH_HEAD
 
 RUN make
+RUN mv $VANITYGEN_DIR/vanitygen++ /usr/local/bin/vanitygen
 
 
 ################################################################################
@@ -46,9 +46,9 @@ RUN make
 FROM debian:${DEBIAN_VER}
 
 COPY --from=source-bx        /bitcoin/bin    /usr/local/bin
-COPY --from=source-vanitygen /vanitygen-plus/vanitygen /usr/local/bin
+COPY --from=source-vanitygen /usr/local/bin/vanitygen /usr/local/bin
 
-RUN apt-get update && apt-get install -y libssl \
+RUN apt-get update && apt-get install -y libssl1.1 \
   && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 VOLUME ["/var/lib/bitcoin"]
